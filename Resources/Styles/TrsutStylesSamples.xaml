@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- スタイル定義:カラーサンプル -->
+
+    <!-- サンプルNo1:ベースカラー、メインカラー、アクセントカラー  -->
+    <Color x:Key="ColorBaseSample1">#E5CFF7</Color>
+    <Color x:Key="ColorMainSampe1">#9D76C1</Color>
+    <Color x:Key="ColorAccent1">#713ABE</Color>
+    <Color x:Key="FourthColor1">#5B0888</Color>
+
+    <!-- サンプルNo2:ベースカラー、メインカラー、アクセントカラー  -->
+    <Color x:Key="ColorBaseSample2">#FFE8B6</Color>
+    <Color x:Key="ColorMainSampe2">#77B254</Color>
+    <Color x:Key="ColorAccent2">#5B913B</Color>
+
+    <!-- サンプルNo3:ベースカラー、メインカラー、アクセントカラー  -->
+    <Color x:Key="ColorBaseSample3">#FFE8C8</Color>
+    <Color x:Key="ColorMainSampe3">#FFC96F</Color>
+    <Color x:Key="ColorAccent3">#FFA62F</Color>
+
+    <!-- スタイル定義(現在適用中):フォント:ベースカラー、メインカラー、アクセントカラー  -->
+    <Color x:Key="ColorBase">#E5CFF7</Color>
+    <Color x:Key="ColorMain">#bb8dbe</Color>
+    <Color x:Key="ColorAccent">#713ABE</Color>
+    <Color x:Key="CplorFourth">#5B0888</Color>
+
+    <!-- スタイル定義::フォントサンプル -->
+    <x:String x:Key="FontBaseSample2">OpenSansRegular</x:String>
+    <x:String x:Key="FontBaseSample3">MS Mincho</x:String>
+    <x:String x:Key="FontBaseSample4">"MS PMincho"</x:String>
+    <x:String x:Key="FontBaseSample5">Yu Mincho Regular</x:String>
+    <x:String x:Key="FontBaseSample6">"Meiryo UI"</x:String>
+
+
+
+
+</ResourceDictionary>

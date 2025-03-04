@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:helper="clr-namespace:CO2.At.Src.bDomain.Helpers"
+             xmlns:vm="clr-namespace:CO2.At.Src.aWinForm.bViewModels"
+             xmlns:employee="clr-namespace:CO2.At.Src.aFunc.Employee"
+             xmlns:customer="clr-namespace:CO2.At.Src.aFunc.Customer"
+             xmlns:viewmodel="clr-namespace:CO2.At.Src.aWinForm.bViewModels"
+             x:Class="CO2.At.Src.aWinForm.aViews.Vw41"
+             >
+    <ContentPage.Resources>
+
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <helper:ViewBox  Stretch="Uniform" StretchDirection="Both" HorizontalOptions="Start" VerticalOptions="Start">
+
+                <!-- 列:2列 比率 1:4 -->
+                <Grid   RowSpacing="60"
+                    WidthRequest="2432" HeightRequest="1368" Margin="64" Padding="32" 
+                    BackgroundColor ="{StaticResource CplorFourth}"
+                   ColumnSpacing="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>     <!-- 1行目 -->
+                        <RowDefinition Height="Auto"/>     <!-- 2行目 -->
+                        <RowDefinition Height="Auto"/>     <!-- 3行目 -->
+                        <RowDefinition Height="Auto"/>     <!-- 4行目 -->
+                        <RowDefinition Height="Auto"/>     <!-- 5行目 -->
+                        <RowDefinition Height="Auto"/>     <!-- 6行目 -->
+                        <RowDefinition Height="Auto"/>     <!-- 7行目 -->
+                        <RowDefinition Height="Auto"/>     <!-- 8行目 -->
+                        <RowDefinition Height="Auto"/>     <!-- 9行目 -->
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- 1行目 -->
+                    <Label  Grid.Row="0" Grid.Column="0" 
+                            Text="取引ID" 
+                            Style="{StaticResource Lbl_BDetail}"/>
+                    <Entry  Grid.Row="0" Grid.Column="1" 
+                            Text="{Binding TransactionNo}" 
+                            IsReadOnly="True" Keyboard="Numeric" MaxLength="9" 
+                            WidthRequest="144" Style="{StaticResource Entry_BDetail}" />
+
+                    <!-- 2行目 -->
+                    <Label  Grid.Row="1" Grid.Column="0" 
+                            Text="売買区分" 
+                            Style="{StaticResource Lbl_BDetail}"/>
+                    <HorizontalStackLayout Grid.Row="1" Grid.Column="1">
+                            <RadioButton    Content="売" IsChecked="{Binding TransactionType}" IsEnabled="{Binding IsEnabled}"
+                                            GroupName="TradeGroup" 
+                                            HeightRequest="-1" Margin="15"/>
+                            <RadioButton    Content="買" IsChecked="{Binding TransactionType}" IsEnabled="{Binding IsEnabled}" 
+                                            GroupName="TradeGroup" 
+                                            HeightRequest="-1" Margin="-65"/>
+                    </HorizontalStackLayout>
+
+                    <!-- 3行目 -->
+                    <Label Grid.Row="2" Grid.Column="0" 
+                            Text ="成立日時" Style="{StaticResource Lbl_BDetail}"  />
+                    <DatePicker Grid.Row="2" Grid.Column="1" 
+                            WidthRequest="160" Style="{StaticResource Entry_BDetail}" />
+
+                    <!-- 4行目 -->
+                    <Label  Grid.Row="3" Grid.Column="0" 
+                            Text ="成立値段" Style="{StaticResource Lbl_BDetail}"  />
+                    <Entry  Grid.Row="3" Grid.Column="1" 
+                            Text="{Binding TransactionPrice}" 
+                            Placeholder="例: 1234.56" MaxLength="9" 
+                            WidthRequest="160" Style="{StaticResource Entry_BDetail}" />
+
+                    <!-- 5行目 -->
+                    <Label  Grid.Row="4" Grid.Column="0" 
+                            Text ="枚数" Style="{StaticResource Lbl_BDetail}"  />
+                    <Entry  Grid.Row="4" Grid.Column="1" 
+                            Text="{Binding Quantity}" 
+                            Placeholder="例: 10" Keyboard="Numeric" MaxLength="9" 
+                            WidthRequest="144" Style="{StaticResource Entry_BDetail}" />
+
+                    <!-- 6行目 -->
+                    <Label  Grid.Row="5" Grid.Column="0" 
+                            Text ="決済完了日時" Style="{StaticResource Lbl_BDetail}"  />
+                    <DatePicker Grid.Row="2" Grid.Column="1" 
+                            WidthRequest="160" Style="{StaticResource Entry_BDetail}" />
+
+                    <!-- 7行目 -->
+                    <Label  Grid.Row="6" Grid.Column="0" 
+                            Text ="差引損益金" Style="{StaticResource Lbl_BDetail}"  />
+                    <Entry  Grid.Row="6" Grid.Column="1" 
+                            Text="{Binding NetProfitLoss}" 
+                            Placeholder="例: -500.00 " IsReadOnly="True" MaxLength="12" 
+                            WidthRequest="144" Style="{StaticResource Entry_BDetail}" />
+
+                    <!-- 8行目 -->
+                    <Label  Grid.Row="7" Grid.Column="0" 
+                            Text ="取引区分" Style="{StaticResource Lbl_BDetail}"  />
+                    <HorizontalStackLayout Grid.Row="1" Grid.Column="1">
+                        <RadioButton    Content="新規" IsChecked="{Binding TransactionType}" IsEnabled="{Binding IsEnabled}"
+                                            GroupName="TransactionCategory" 
+                                            HeightRequest="-1" Margin="15"/>
+                        <RadioButton    Content="決済" IsChecked="{Binding TransactionType}" IsEnabled="{Binding IsEnabled}" 
+                                            GroupName="TransactionCategory" 
+                                            HeightRequest="-1" Margin="-65"/>
+                    </HorizontalStackLayout>
+
+                    <!-- 9行目 -->
+                    <HorizontalStackLayout Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2">
+                        <Button Text="水平ボタン1" Style="{StaticResource Btn_App}" Margin="{StaticResource MarginBtn}"/>
+                        <Button Text="水平ボタン2" Style="{StaticResource Btn_App}" Margin="{StaticResource MarginBtn}"/>
+                    </HorizontalStackLayout>
+
+                </Grid>
+            </helper:ViewBox>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

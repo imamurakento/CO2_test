@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodel="clr-namespace:CO2.At.Src.aWinForm.bViewModels"
+             xmlns:customer="clr-namespace:CO2.At.Src.aFunc.Customer"
+             xmlns:helper="clr-namespace:CO2.At.Src.bDomain.Helpers"
+             x:Class="CO2.At.Src.aWinForm.aViews.Vw22"
+             x:Name="xNameVw22"
+             x:DataType="viewmodel:CmrVM"
+             Loaded="Window_Loaded"
+             >
+
+    <ContentPage.Resources>
+
+        <Thickness x:Key="MarginFrame" Top="0" Right="8" Bottom="0" Left="8" />
+        <Thickness x:Key="InputLeftBaseMargin" Top="8" Right="0" Bottom="0" Left="16" />
+        <Thickness x:Key="MarginLblValueObjMiddle" Top="8" Right="0" Bottom="0" Left="0" />
+
+     </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <!--<ScrollView>-->
+        <helper:ViewBox  Stretch="Uniform" StretchDirection="Both" HorizontalOptions="Start" VerticalOptions="Start">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Frame  Grid.Row="0" Style="{StaticResource Frm_App}" Margin="{StaticResource  MarginFrame}">
+
+                    <!--<helper:ViewBox  Stretch="UniformToFill" StretchDirection="Both">-->
+                    <VerticalStackLayout >
+
+                        <HorizontalStackLayout >
+                            <Label  Text="顧客ID" Style="{StaticResource Lbl_BDetail}" />
+                            <Entry x:Name="CustomerNumberTxt" Placeholder="例: 123456" Style="{StaticResource Entry_BDetail}" Keyboard="Numeric"  Text="{Binding DetailCustomer.CustomerNumber}" IsReadOnly="True"/>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout>
+                            <Label Style="{StaticResource Lbl_BDetail}" Text="フリガナ" />
+                            <Entry x:Name="FuriganaTxt" Placeholder="例: ヤマダタロウ" Style="{StaticResource Entry_BDetail}" Text="{Binding DetailCustomer.Furigana}" MaxLength="50" IsEnabled="{Binding IsEnabled}">
+                            </Entry>
+                        </HorizontalStackLayout>
+ 
+                        <HorizontalStackLayout >
+                            <Label Style="{StaticResource Lbl_BDetail}" Text="顧客氏名"   />
+                            <Entry x:Name="FullNameTxt" Placeholder="例: 山田 太郎" Style="{StaticResource Entry_BDetail}"  Text="{Binding DetailCustomer.FullName}"  MaxLength="50" IsEnabled="{Binding IsEnabled}"/>
+                        </HorizontalStackLayout>
+    
+                        <HorizontalStackLayout  >
+                            <!--<Line X1="10" Y1="10" X2="10400" Y2="10" Stroke="Gray" />-->
+                            <Border Stroke="Gray" StrokeThickness="3" HeightRequest="2"  Margin="10,10,10,0" WidthRequest="1050"/>
+                        </HorizontalStackLayout>
+ 
+                        <HorizontalStackLayout >
+                            <Label Style="{StaticResource Lbl_BDetail}" Text="性別"  />
+                            <RadioButton Content="男" HeightRequest="-1" IsChecked="{Binding DetailCustomer.Gender.IsGenderMan}" Margin="15" IsEnabled="{Binding IsEnabled}"/>
+                            <RadioButton Content="女" HeightRequest="-1" IsChecked="{Binding DetailCustomer.Gender.IsGenderWoMan}" Margin="-65" IsEnabled="{Binding IsEnabled}"/>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout  Grid.Row="5" >
+                            <Label Style="{StaticResource Lbl_BDetail}" Text="生年月日"  />
+                            <Picker ItemsSource="{Binding DetailCustomer.Birthday.EraList}" SelectedItem="{Binding DetailCustomer.Birthday.SelectedEra}"  WidthRequest="120" Margin="{StaticResource   InputLeftBaseMargin}" IsEnabled="{Binding IsEnabled}"></Picker>
+                            <Entry x:Name="BirthDateYearTxt" Text="{Binding DetailCustomer.Birthday.Year}" Placeholder="例:1990" Style="{StaticResource Entry_BDetail}" WidthRequest="110" Keyboard="Numeric" IsEnabled="{Binding IsEnabled}"/>
+                            <Label Style="{StaticResource Lbl_BDetail}" Text="年" WidthRequest="40" Margin="{StaticResource  MarginLblValueObjMiddle}" />
+                            <Entry x:Name="BirthDateMonthTxt" Text="{Binding DetailCustomer.Birthday.Month}" Placeholder="例:1" Style="{StaticResource Entry_BDetail}" WidthRequest="60" Keyboard="Numeric" IsEnabled="{Binding IsEnabled}"/>
+                            <Label Style="{StaticResource Lbl_BDetail}" Text="月" WidthRequest="40" Margin="{StaticResource MarginLblValueObjMiddle}"   />
+                            <Entry x:Name="BirthDateDayTxt" Text="{Binding DetailCustomer.Birthday.Day}" Placeholder="例:1" Style="{StaticResource Entry_BDetail}" WidthRequest="60" Keyboard="Numeric" IsEnabled="{Binding IsEnabled}"/>
+                            <Label Style="{StaticResource Lbl_BDetail}" Text="日" WidthRequest="40" Margin="{StaticResource MarginLblValueObjMiddle}"  />
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout>
+                            <Label Style="{StaticResource Lbl_BDetail}" Text="送付状送り先"  />
+                            <RadioButton Content="自宅" HeightRequest="-1"  x:Name="MailingDestinationTypeHomeRbt" Margin="15" IsChecked="True" IsEnabled="{Binding IsEnabled}"/>
+                            <RadioButton Content="会社" HeightRequest="-1"  x:Name="MailingDestinationTypeCompanyRbt"  Margin="-65" IsEnabled="{Binding IsEnabled}"/>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout >
+                            <Label Style="{StaticResource Lbl_BDetail}" Text="連絡先"  />
+                            <!--<Picker ItemsSource="{Binding DetailCustomer.VOContactDetails.ContactDetailsList}" SelectedItem="{Binding DetailCustomer.VOContactDetails.SelectedContactDetails}"  WidthRequest="224" Margin="{StaticResource  InputLeftBaseMargin}" IsEnabled="{Binding IsEnabled}">-->
+                            <Picker SelectedItem="{Binding DetailCustomer.ContactDetails.SelectedContactDetails}"  WidthRequest="224" Margin="{StaticResource  InputLeftBaseMargin}" IsEnabled="{Binding IsEnabled}">
+                                <Picker.ItemsSource>
+                                    <x:Array Type="{x:Type x:String}">
+                                        <x:String>自宅電話</x:String>
+                                        <x:String>携帯電話</x:String>
+                                        <x:String>勤務先電話</x:String>
+                                    </x:Array>
+                                </Picker.ItemsSource>
+                            </Picker>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout >
+                            <Label Style="{StaticResource Lbl_BDetail}" Text="担当社員"  />
+                            <Picker ItemsSource="{Binding DetailCustomer.EmpCharge.EmpInChargeList}"  SelectedItem="{Binding DetailCustomer.EmpCharge.SelectedEmp}" WidthRequest="224"  Margin="{StaticResource  InputLeftBaseMargin}" IsEnabled="{Binding IsEnabled}"></Picker>
+                        </HorizontalStackLayout>
+
+                    </VerticalStackLayout>
+                    <!--</helper:ViewBox>-->
+
+            </Frame>
+
+                <material:TabView Grid.Row="1">
+
+                <material:TabItem Title="会社情報">
+
+                        <material:TabItem.HeaderTemplate>
+                            <DataTemplate>
+                                <Button Text="会社情報" BackgroundColor="{AppThemeBinding Light={StaticResource ColorAccent}, Dark={StaticResource Gray600}}" 
+                                        TextColor="{AppThemeBinding Light={StaticResource ColorBaseWhite}, Dark={StaticResource PrimaryDarkText}}"  FontFamily="OpenSansRegular" FontAttributes="Bold"
+                                        HeightRequest="60" CornerRadius="0" FontSize="24">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsSelected}" Value="True">
+                                            <Setter Property="BorderWidth" Value="2"/>
+                                            <Setter Property="BorderColor" Value="#4B164C"/>
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsSelected}" Value="False">
+                                            <Setter Property="BorderWidth" Value="0"/>
+                                            <Setter Property="BorderColor" Value="Transparent"/>
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                            </DataTemplate>
+                        </material:TabItem.HeaderTemplate>
+                        <material:TabItem.Content>
+
+                        <Frame Style="{StaticResource Frm_App}" Margin="{StaticResource  MarginFrame}">
+                                <!--<helper:ViewBox  Stretch="UniformToFill" StretchDirection="Both">-->
+
+                                <VerticalStackLayout>
+
+                                    <HorizontalStackLayout  >
+                                        <Label Text="勤務先名称" Style="{StaticResource Lbl_BDetail}"  />
+                                        <Entry  x:Name="EmployerNameTxt" Text="{Binding DetailCustomer.EmpName}" Placeholder="例: 株式会社ABC" Style="{StaticResource Entry_BDetail}" WidthRequest="800" HeightRequest="60" Margin="{StaticResource  InputLeftBaseMargin}"  MaxLength="50" IsEnabled="{Binding IsEnabled}"/>
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout  >
+                                        <Label Text="勤務先電話番号" Style="{StaticResource Lbl_BDetail}"   />
+                                        
+                                        <Entry Text="{Binding DetailCustomer.EmpPhoneNumber.FirstNumber}" IsEnabled="{Binding IsEnabled}"
+                                               Placeholder="例:03" Keyboard="Numeric" MaxLength="4" WidthRequest="88"
+                                               Style="{StaticResource Entry_BDetail}" Margin="{StaticResource  InputLeftBaseMargin}">
+                                            
+                                           <Entry.Behaviors>
+                                                <toolkit:EventToCommandBehavior EventName="Unfocused" 
+                                                                                Command="{Binding DetailCustomer.EmpPhoneNumber.ValidateFistNumberCommand}"
+                                                                                EventArgsConverter="{StaticResource UnfocusedEventArgsConverter}"/>
+                                                <toolkit:EventToCommandBehavior EventName="Completed"
+                                                                                Command="{Binding DetailCustomer.EmpPhoneNumber.ValidateFistNumberCommand}"
+                                                                                CommandParameter="{Binding DetailCustomer.EmpPhoneNumber.FirstNumber}"/>
+                                            </Entry.Behaviors>
+                                            
+                                            <Entry.Triggers>
+                                                <DataTrigger
+                                                     TargetType="Entry" Binding="{Binding DetailCustomer.EmpPhoneNumber.IsValidFirst}" Value="False">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource EntryErrorColor}" />
+                                                </DataTrigger>
+                                            </Entry.Triggers>
+                                            
+                                        </Entry>
+                                        
+                                        <Label Text="-" Style="{StaticResource Lbl_BDetail}" WidthRequest="24" Margin="{StaticResource MarginLblValueObjMiddle}"  />
+                                        
+                                        <Entry  Text="{Binding DetailCustomer.EmpPhoneNumber.MiddleNumber}" IsEnabled="{Binding IsEnabled}"
+                                                Placeholder="例:1234" Keyboard="Numeric" MaxLength="4" WidthRequest="88"
+                                                Style="{StaticResource Entry_BDetail}" Margin="{StaticResource MarginLblValueObjMiddle}">
+                                            
+                                            <Entry.Behaviors>
+                                                <toolkit:EventToCommandBehavior EventName="Unfocused" 
+                                                                                Command="{Binding DetailCustomer.EmpPhoneNumber.ValidateMiddleNumberCommand}"
+                                                                                EventArgsConverter="{StaticResource UnfocusedEventArgsConverter}"/>
+                                                <toolkit:EventToCommandBehavior EventName="Completed"
+                                                                                Command="{Binding DetailCustomer.EmpPhoneNumber.ValidateMiddleNumberCommand}"
+                                                                                CommandParameter="{Binding DetailCustomer.EmpPhoneNumber.MiddleNumber}"/>
+                                            </Entry.Behaviors>
+                                            <Entry.Triggers>
+                                                <DataTrigger
+                                                    TargetType="Entry" Binding="{Binding DetailCustomer.EmpPhoneNumber.IsValidMiddle}" Value="False">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource EntryErrorColor}" />
+                                                </DataTrigger>
+                                            </Entry.Triggers>
+                                        </Entry>
+                                        <Label Text="-" Style="{StaticResource Lbl_BDetail}" WidthRequest="24" Margin="{StaticResource MarginLblValueObjMiddle}"  />
+                                        <Entry Text="{Binding DetailCustomer.EmpPhoneNumber.LastNumber}" IsEnabled="{Binding IsEnabled}" Placeholder="例:5678" Keyboard="Numeric"  MaxLength="4" WidthRequest="88" Style="{StaticResource Entry_BDetail}" Margin="{StaticResource MarginLblValueObjMiddle}">
+                                            <Entry.Behaviors>
+                                                <toolkit:EventToCommandBehavior EventName="Unfocused" 
+                                                                                Command="{Binding DetailCustomer.EmpPhoneNumber.ValidateLastNumberCommand}"
+                                                                                EventArgsConverter="{StaticResource UnfocusedEventArgsConverter}"/>
+                                                <toolkit:EventToCommandBehavior EventName="Completed"
+                                                                                Command="{Binding DetailCustomer.EmpPhoneNumber.ValidateLastNumberCommand}"
+                                                                                CommandParameter="{Binding DetailCustomer.EmpPhoneNumber.LastNumber}"/>
+                                            </Entry.Behaviors>
+                                            <Entry.Triggers>
+                                                <DataTrigger
+                                                    TargetType="Entry" Binding="{Binding DetailCustomer.EmpPhoneNumber.IsValidLast}" Value="false">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource EntryErrorColor}"/>
+                                                </DataTrigger>
+                                            </Entry.Triggers>
+
+                                        </Entry>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout>
+                                        <Label Text="LeftHaeder" Style="{StaticResource Lbl_BDetail}" IsVisible="False"  />
+                                        <Label Text="{Binding DetailCustomer.EmpPhoneNumber.ValidationErrorMsg}" Style="{StaticResource Lbl_ErrorMsg}" Margin="80,0,0,0"/>
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout  >
+                                        <Label Style="{StaticResource Lbl_BDetail}" Text="郵便番号"/>
+                                        <Entry Text="{Binding DetailCustomer.EmpAddress.AreaCode}" Placeholder="例:590"  Keyboard="Numeric" MaxLength="3" IsEnabled="{Binding IsEnabled}" WidthRequest="88" Margin="{StaticResource InputLeftBaseMargin}"  Style="{StaticResource Entry_BDetail}">
+                                            <Entry.Behaviors>
+                                                <toolkit:EventToCommandBehavior EventName="Unfocused" 
+                                                                                Command="{Binding DetailCustomer.EmpAddress.ChkPostAreaCommand}"
+                                                                                EventArgsConverter="{StaticResource UnfocusedEventArgsConverter}"/>
+                                                <toolkit:EventToCommandBehavior EventName="Completed"
+                                                                                Command="{Binding DetailCustomer.EmpAddress.ChkPostAreaCommand}"
+                                                                                CommandParameter="{Binding DetailCustomer.EmpAddress.AreaCode}"/>
+                                            </Entry.Behaviors>
+                                            <Entry.Triggers>
+                                                <DataTrigger
+                                                    TargetType="Entry" Binding="{Binding DetailCustomer.EmpAddress.IsValid}" Value="False">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource EntryErrorColor}"/>
+                                                </DataTrigger>
+                                            </Entry.Triggers>
+                                       </Entry>
+                                        <Label Style="{StaticResource Lbl_BDetail}" Text="-" WidthRequest="24" Margin="{StaticResource MarginLblValueObjMiddle}"  />
+                                        <Entry  Text="{Binding DetailCustomer.EmpAddress.TownCode}" Placeholder="例:7704"  Keyboard="Numeric" MaxLength="4" IsEnabled="{Binding IsEnabled}" WidthRequest="120"  Margin="{StaticResource MarginLblValueObjMiddle}" Style="{StaticResource Entry_BDetail}">
+                                            <Entry.Behaviors>
+                                                <toolkit:EventToCommandBehavior EventName="Unfocused" Command="{Binding DetailCustomer.EmpAddress.ChkPostTownCommand}" EventArgsConverter="{StaticResource UnfocusedEventArgsConverter}"/>
+                                            </Entry.Behaviors>
+                                        </Entry>
+
+                                        <!-- 検索ボタン -->
+                                        <Button Text="住所検索" 
+                                                Command="{Binding DetailCustomer.EmpAddress.SearchAddressCommand}" 
+                                                Style="{StaticResource Btn_App}"  Margin="{StaticResource MarginLblValueObjMiddle}" HeightRequest="-1"/>
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout>
+                                            <Label Text="LeftHaeder" Style="{StaticResource Lbl_BDetail}" IsVisible="False"  />
+                                        <Label Text="{Binding DetailCustomer.EmpAddress.ValidationErrorMsg}" Style="{StaticResource Lbl_ErrorMsg}" Margin="80,0,0,0"/>
+                                    </HorizontalStackLayout>
+
+                                        <HorizontalStackLayout  >
+                                            
+                                        <Label Style="{StaticResource Lbl_BDetail}" Text="所在地"   />
+                                        <Editor x:Name="EmpAddressTxt" Text="{Binding DetailCustomer.EmpAddress.Location}" Placeholder="例: 東京都渋谷区道玄坂1-1-1" WidthRequest="800" HeightRequest="100" Margin="{StaticResource  InputLeftBaseMargin}"  MaxLength="255" IsEnabled="{Binding IsEnabled}">
+                                        </Editor>
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout  >
+                                        <Label Style="{StaticResource Lbl_BDetail}" Text="所在地2"   />
+                                        <Editor x:Name="EmpAddress2Txt" Text="{Binding DetailCustomer.EmpAddress2}" Placeholder="例: ABCビル 3階"  WidthRequest="800" HeightRequest="100" Margin="{StaticResource  InputLeftBaseMargin}"  MaxLength="255" IsEnabled="{Binding IsEnabled}">
+                                        </Editor>
+                                    </HorizontalStackLayout>
+
+                                </VerticalStackLayout>
+                                <!--</helper:ViewBox>-->
+                        </Frame>
+
+                        </material:TabItem.Content>
+
+                    </material:TabItem>
+
+                    <material:TabItem Title="個人情報" >
+                        <material:TabItem.HeaderTemplate>
+                            <DataTemplate>
+
+
+                                <Button Text="個人情報" BackgroundColor="{AppThemeBinding Light={StaticResource ColorAccent}, Dark={StaticResource Gray600}}" 
+                      TextColor="{AppThemeBinding Light={StaticResource ColorBaseWhite}, Dark={StaticResource PrimaryDarkText}}"  FontFamily="OpenSansRegular" FontAttributes="Bold"
+                      HeightRequest="60" CornerRadius="0" FontSize="24">
+
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsSelected}" Value="True">
+                                            <Setter Property="BorderWidth" Value="2"/>
+                                            <Setter Property="BorderColor" Value="#4B164C"/>
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsSelected}" Value="False">
+                                            <Setter Property="BorderWidth" Value="0"/>
+                                            <Setter Property="BorderColor" Value="Transparent"/>
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+
+
+                            </DataTemplate>
+                        </material:TabItem.HeaderTemplate>
+
+                        <material:TabItem.Content>
+                            <Frame Style="{StaticResource Frm_App}" Margin="{StaticResource  MarginFrame}">
+                                <!--<helper:ViewBox  Stretch="UniformToFill" StretchDirection="Both">-->
+                                <VerticalStackLayout>
+
+                                    <HorizontalStackLayout  >
+                                        <Label Style="{StaticResource Lbl_BDetail}" Text="電話番号"   />
+                                        <Entry  x:Name="PersonalPhoneNumber1Txt"  Placeholder="例:03" Text="{Binding DetailCustomer.PsnPhoneNumber.FirstNumber}" Style="{StaticResource Entry_BDetail}" WidthRequest="88" Margin="{StaticResource  InputLeftBaseMargin}"  Keyboard="Numeric" MaxLength="3" IsEnabled="{Binding IsEnabled}"/>
+                                        <Label Style="{StaticResource Lbl_BDetail}" Text="-" WidthRequest="24" Margin="{StaticResource MarginLblValueObjMiddle}"  />
+                                        <Entry  x:Name="PersonalPhoneNumber2Txt" Placeholder="例:9876" Text="{Binding DetailCustomer.PsnPhoneNumber.MiddleNumber}" Style="{StaticResource Entry_BDetail}" WidthRequest="88" Margin="{StaticResource MarginLblValueObjMiddle}"  Keyboard="Numeric" MaxLength="4" IsEnabled="{Binding IsEnabled}"/>
+                                        <Label Style="{StaticResource Lbl_BDetail}" Text="-" WidthRequest="24" Margin="{StaticResource MarginLblValueObjMiddle}"  />
+                                        <Entry  x:Name="PersonalPhoneNumber3Txt" Placeholder="例:5432" Text="{Binding DetailCustomer.PsnPhoneNumber.LastNumber}" Style="{StaticResource Entry_BDetail}" WidthRequest="88" Margin="{StaticResource MarginLblValueObjMiddle}"  Keyboard="Numeric"  MaxLength="4" IsEnabled="{Binding IsEnabled}"/>
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout>
+
+                                        <HorizontalStackLayout  >
+                                            <Label Style="{StaticResource Lbl_BDetail}" Text="FAX" />
+                                            <Entry x:Name="PersonalFaxNumber1Txt" Placeholder="例:03" Text="{Binding DetailCustomer.PsnFaxNumber.FirstNumber}" Style="{StaticResource Entry_BDetail}" WidthRequest="88" Margin="{StaticResource  InputLeftBaseMargin}"  Keyboard="Numeric" MaxLength="3" IsEnabled="{Binding IsEnabled}"/>
+                                            <Label Style="{StaticResource Lbl_BDetail}" Text="-" WidthRequest="24" Margin="{StaticResource MarginLblValueObjMiddle}" />
+                                            <Entry x:Name="PersonalFaxNumber2Txt"  Placeholder="例:03" Text="{Binding DetailCustomer.PsnFaxNumber.MiddleNumber}" Style="{StaticResource Entry_BDetail}" WidthRequest="88" Margin="{StaticResource MarginLblValueObjMiddle}"  Keyboard="Numeric" MaxLength="4" IsEnabled="{Binding IsEnabled}"/>
+                                            <Label Style="{StaticResource Lbl_BDetail}" Text="-" WidthRequest="24" Margin="{StaticResource MarginLblValueObjMiddle}"  />
+                                            <Entry x:Name="PersonalFaxNumber3Txt" Placeholder="例:4321" Text="{Binding DetailCustomer.PsnFaxNumber.LastNumber}" Style="{StaticResource Entry_BDetail}" WidthRequest="88" Margin="{StaticResource MarginLblValueObjMiddle}"  Keyboard="Numeric"  MaxLength="4" IsEnabled="{Binding IsEnabled}"/>
+                                        </HorizontalStackLayout>
+                                    </HorizontalStackLayout>
+
+
+                                    <HorizontalStackLayout  >
+                                        <Label Style="{StaticResource Lbl_BDetail}" Text="携帯番号"   />
+                                        <Entry x:Name="PersonalMobileNumber1Txt" Placeholder="例:090" Text="{Binding DetailCustomer.PsnMobileNumber.FirstNumber}" Style="{StaticResource Entry_BDetail}" WidthRequest="88" Margin="{StaticResource  InputLeftBaseMargin}" Keyboard="Numeric" MaxLength="3" IsEnabled="{Binding IsEnabled}"/>
+                                        <Label Style="{StaticResource Lbl_BDetail}" Text="-" WidthRequest="24" Margin="{StaticResource MarginLblValueObjMiddle}"  />
+                                        <Entry x:Name="PersonalMobileNumber2Txt" Placeholder="例:1234" Text="{Binding DetailCustomer.PsnMobileNumber.MiddleNumber}"  Style="{StaticResource Entry_BDetail}" WidthRequest="88" Margin="{StaticResource MarginLblValueObjMiddle}"  Keyboard="Numeric" MaxLength="4" IsEnabled="{Binding IsEnabled}"/>
+                                        <Label Style="{StaticResource Lbl_BDetail}" Text="-" WidthRequest="24" Margin="{StaticResource MarginLblValueObjMiddle}"  />
+                                        <Entry x:Name="PersonalMobileNumber3Txt" Placeholder="例:5678" Text="{Binding DetailCustomer.PsnMobileNumber.LastNumber}" Style="{StaticResource Entry_BDetail}" WidthRequest="88" Margin="{StaticResource MarginLblValueObjMiddle}"  Keyboard="Numeric"  MaxLength="4" IsEnabled="{Binding IsEnabled}"/>
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout  >
+                                        <Label Style="{StaticResource Lbl_BDetail}" Text="郵便番号"   />
+                                        <Entry Text="{Binding DetailCustomer.EmpAddress.AreaCode}" Placeholder="例:123"   Keyboard="Numeric" MaxLength="3" IsEnabled="{Binding IsEnabled}" WidthRequest="88" Margin="{StaticResource InputLeftBaseMargin}"  Style="{StaticResource Entry_BDetail}">
+                                            <Entry.Behaviors>
+                                                <toolkit:EventToCommandBehavior EventName="Unfocused" Command="{Binding DetailCustomer.EmpAddress.ChkPostAreaCommand}" EventArgsConverter="{StaticResource UnfocusedEventArgsConverter}"/>
+                                            </Entry.Behaviors>
+                                        </Entry>
+                                        <Label Style="{StaticResource Lbl_BDetail}" Text="-" WidthRequest="24" Margin="{StaticResource MarginLblValueObjMiddle}"  />
+                                        <Entry  Text="{Binding DetailCustomer.EmpAddress.TownCode}" Placeholder="例:4567"   Keyboard="Numeric" MaxLength="4" IsEnabled="{Binding IsEnabled}" WidthRequest="120"  Margin="{StaticResource MarginLblValueObjMiddle}" Style="{StaticResource Entry_BDetail}">
+                                            <Entry.Behaviors>
+                                                <toolkit:EventToCommandBehavior EventName="Unfocused" Command="{Binding DetailCustomer.EmpAddress.ChkPostTownCommand}" EventArgsConverter="{StaticResource UnfocusedEventArgsConverter}" />
+                                            </Entry.Behaviors>
+                                        </Entry>
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout  >
+                                        <Label Style="{StaticResource Lbl_BDetail}" Text="住所"   />
+                                        <Editor x:Name="PsnAddress1Txt" Placeholder="例: 東京都新宿区西新宿2-8-1" Text="{Binding DetailCustomer.PsnAddress.Location}" WidthRequest="800" HeightRequest="100" Margin="{StaticResource  InputLeftBaseMargin}"  MaxLength="255" IsEnabled="{Binding IsEnabled}"/>
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout  >
+                                        <Label Style="{StaticResource Lbl_BDetail}" Text="住所2"   />
+                                        <Editor  x:Name="PsnAddress2Txt"  Placeholder="例: 新宿マンション 101号室"  Text="{Binding DetailCustomer.PsnAddress2}" WidthRequest="800" HeightRequest="100" Margin="{StaticResource  InputLeftBaseMargin}"  MaxLength="255" IsEnabled="{Binding IsEnabled}"/>
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+                                <!--</helper:ViewBox>-->
+
+                            </Frame>
+                        </material:TabItem.Content>
+                    </material:TabItem>
+
+                    <material:TabItem Title="届出事項">
+
+                        <material:TabItem.HeaderTemplate>
+                            <DataTemplate>
+
+
+                                <Button Text="届出事項" BackgroundColor="{AppThemeBinding Light={StaticResource ColorAccent}, Dark={StaticResource Gray600}}" 
+                                      TextColor="{AppThemeBinding Light={StaticResource ColorBaseWhite}, Dark={StaticResource PrimaryDarkText}}"  FontFamily="OpenSansRegular" FontAttributes="Bold"
+                                      HeightRequest="60" CornerRadius="0" FontSize="24">
+
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsSelected}" Value="True">
+                                            <Setter Property="BorderWidth" Value="2"/>
+                                            <Setter Property="BorderColor" Value="#4B164C"/>
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsSelected}" Value="False">
+                                            <Setter Property="BorderWidth" Value="0"/>
+                                            <Setter Property="BorderColor" Value="Transparent"/>
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+
+
+                            </DataTemplate>
+                        </material:TabItem.HeaderTemplate>
+                        <material:TabItem.Content>
+                            <Frame Style="{StaticResource Frm_App}" Margin="{StaticResource   MarginFrame}">
+                                <!--<helper:ViewBox  Stretch="UniformToFill" StretchDirection="Both">-->
+                                <VerticalStackLayout>
+
+                                    <HorizontalStackLayout  >
+                                        <Label Style="{StaticResource Lbl_BDetail}" Text="書類種類"  />
+                                        <Picker x:Name="NotifyMattersDocumentsKindCmb" SelectedIndex="{Binding DetailCustomer.SubmissionCertificate.SelectedDocumentKind}" WidthRequest="240"  Margin="{StaticResource  InputLeftBaseMargin}" IsEnabled="{Binding IsEnabled}">
+                                            <Picker.ItemsSource>
+                                                <x:Array Type="{x:Type x:String}">
+                                                    <x:String>免許証</x:String>
+                                                    <x:String>住民票</x:String>
+                                                    <x:String>パスポート</x:String>
+                                                    <x:String>健康保険証</x:String>
+                                                    <x:String>マイナンバーカード</x:String>
+                                                </x:Array>
+                                            </Picker.ItemsSource>
+                                        </Picker>
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout  >
+                                        <Label Style="{StaticResource Lbl_BDetail}" Text="証明書番号"  />
+                                        <Entry x:Name="NotifyMattersCertificationNumberTxt" Placeholder="例: A123456789" Text="{Binding DetailCustomer.SubmissionCertificate.CertificationNumber}" Style="{StaticResource Entry_BDetail}" IsEnabled="{Binding IsEnabled}" >
+                                        </Entry>
+
+                                    </HorizontalStackLayout>
+
+                                    <VerticalStackLayout ></VerticalStackLayout >
+
+                                    <HorizontalStackLayout  >
+                                        <Label Style="{StaticResource Lbl_BDetail}" Text="金融機関名"  />
+                                        <Entry x:Name="NotifyMattersBankNameTxt" Placeholder="例:UFJ銀行" Text="{Binding DetailCustomer.PsnBankAccounts.BankName}" Style="{StaticResource Entry_BDetail}" IsEnabled="{Binding IsEnabled}" />
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout  >
+                                        <Label Style="{StaticResource Lbl_BDetail}" Text="支店名"  />
+                                        <Entry x:Name="NotifyMattersBranchNameTxt" Placeholder="例: 渋谷支店" Text="{Binding DetailCustomer.PsnBankAccounts.BranchName}"  Style="{StaticResource Entry_BDetail}" IsEnabled="{Binding IsEnabled}" />
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout  >
+                                        <Label Style="{StaticResource Lbl_BDetail}" Text="口座種類"  />
+                                        <Picker x:Name="NotifyMattersAccountKindCmb" SelectedIndex="{Binding DetailCustomer.PsnBankAccounts.SelectedAccountKind}" WidthRequest="160"  Margin="{StaticResource  InputLeftBaseMargin}" IsEnabled="{Binding IsEnabled}">
+                                            <Picker.ItemsSource>
+                                                <x:Array Type="{x:Type x:String}">
+                                                    <x:String>普通</x:String>
+                                                    <x:String>当座</x:String>
+                                                </x:Array>
+                                            </Picker.ItemsSource>
+                                        </Picker>
+
+                                        <HorizontalStackLayout ></HorizontalStackLayout>
+
+                                        <Label Style="{StaticResource Lbl_BDetail}" Text="口座番号"  />
+                                        <Entry x:Name="NotifyMattersAccountNumberTxt" Placeholder="例: 1234567890" Text="{Binding DetailCustomer.PsnBankAccounts.AccountNumber}" Style="{StaticResource Entry_BDetail}" WidthRequest="368" IsEnabled="{Binding IsEnabled}"/>
+
+                                    </HorizontalStackLayout>
+                                    <!--タブ間の空間調整-->
+                                    <HorizontalStackLayout  >
+                                        <Label Text="" HeightRequest="120"  />
+                                    </HorizontalStackLayout>
+
+                                </VerticalStackLayout>
+
+                                <!--</helper:ViewBox>-->
+
+                        </Frame>
+                    </material:TabItem.Content>
+                </material:TabItem>
+            </material:TabView>
+
+            <!-- 操作ボタン -->
+
+                <!--<helper:ViewBox Grid.Row="2"  Stretch="UniformToFill" StretchDirection="Both">-->
+                <HorizontalStackLayout HorizontalOptions="End" Padding="24" Grid.Row="2">
+                    <Button x:Name="BtnRegister" Style="{StaticResource Btn_App}" Text="登録" Command="{Binding RegisterCustomerCommand}" IsEnabled="{Binding IsEnabled}" WidthRequest="150" Margin="300,0,0,0"/>
+                    <HorizontalStackLayout WidthRequest="8" Margin="{StaticResource MarginLblValueObjMiddle}"></HorizontalStackLayout>
+                        <Button x:Name="BtnCancel" Style="{StaticResource Btn_App}" Text="キャンセル" Command="{Binding CloseWindowCommand}"  WidthRequest="200"/>
+                </HorizontalStackLayout>
+                <!--</helper:ViewBox>-->
+
+            <!-- 未使用になったもの -->
+            <!--<Entry.Triggers>
+                                    <MultiTrigger TargetType="Entry">
+                                        <MultiTrigger.Conditions>
+                                            <BindingCondition Binding="{Binding HasNameError}" Value="True"/>
+                                        </MultiTrigger.Conditions>
+                                        <Setter Property="BackgroundColor" Value="Red"/>
+                                    </MultiTrigger>
+                                </Entry.Triggers>-->
+            <!--<Label Text="{Binding ErrorMessage}"   />-->
+            <!--<Label Text="{Binding DetailCustomer.ErrorMessage}"
+                                           TextColor="Red"
+                                           IsVisible="{Binding DetailCustomer.HasNameError}" />-->
+            <!--<HorizontalStackLayout  >
+                                        <Label Style="{StaticResource Lbl_BDetail}" Text="所在値3"   />
+                                        <Entry x:Name="EmpAddress3Txt" Text="{Binding DetailCustomer.EmpAddress2}"  WidthRequest="800" HeightRequest="100" Margin="{StaticResource  InputLeftBaseMargin}"  MaxLength="255" IsEnabled="{Binding IsEnabled}">
+                                            <Entry.Behaviors>
+                                                <toolkit:TextValidationBehavior 
+                                                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                                ValidStyle="{StaticResource ValidEntryStyle}"
+                                                Flags="ValidateOnValueChanged"
+                                                RegexPattern="^[1-9]{1,10}$"
+                                                RegexOptions="None"/>
+                                            </Entry.Behaviors>
+                                        </Entry>
+                                    </HorizontalStackLayout>-->
+
+            <!--<HorizontalStackLayout  >
+                                        <Label Style="{StaticResource Lbl_BDetail}" Text="所在値4"   />
+                                        <Entry x:Name="EmpAddress4Txt" Text="{Binding DetailCustomer.EmpAddress2}"  WidthRequest="800" HeightRequest="100" Margin="{StaticResource  InputLeftBaseMargin}"  MaxLength="255" IsEnabled="{Binding IsEnabled}">
+                                            <Entry.Behaviors>
+                                                <toolkit:TextValidationBehavior 
+                                                    InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                                    ValidStyle="{StaticResource ValidEntryStyle}"
+                                                    Flags="ValidateOnValueChanged"
+                                                    RegexPattern="^[1-9]{1,10}$"
+                                                    RegexOptions="None"/>
+                                                <toolkit:EventToCommandBehavior 
+                                                    EventName="TextChanged"
+                                                    Command="{Binding TextChangedCommand}"
+                                                    CommandParameter="{Binding Text, Source={RelativeSource AncestorType={x:Type Entry}}}" />
+                                            </Entry.Behaviors>
+                                        </Entry>
+                                    </HorizontalStackLayout>-->
+
+            </Grid>
+        </helper:ViewBox>
+        <!--</ScrollView>-->
+    </ContentPage.Content>
+
+</ContentPage>

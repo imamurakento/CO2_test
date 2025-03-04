@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helper="clr-namespace:CO2.At.Src.bDomain.Helpers"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodel="clr-namespace:CO2.At.Src.aWinForm.bViewModels"
+             xmlns:employee="clr-namespace:CO2.At.Src.aFunc.Employee"
+             x:Class="CO2.At.Src.aWinForm.aViews.Vw624_User"
+             x:DataType="viewmodel:EmpVM"
+             x:Name="UserPage"
+             >
+    <ContentPage.Resources>
+
+        <Thickness x:Key="InputLeftBaseMargin" Top="8" Right="0" Bottom="0" Left="16" />
+        <Thickness x:Key="MgnFrame" Top="0" Right="8" Bottom="0" Left="8" />
+
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <ScrollView>
+            <VerticalStackLayout Margin="{StaticResource MgnHeaderBase}">
+
+                <Frame Style="{StaticResource Frm_App}" Margin="{StaticResource MgnFrame}">
+                    <VerticalStackLayout Spacing="10">
+
+                        <HorizontalStackLayout>
+                            <Label Style="{StaticResource Lbl_BDetail}" Text="ユーザーID" />
+                            <Entry x:Name="UserIdTxt" 
+                                   Text="AAAA" 
+                                   Placeholder="例: 12345" 
+                                   Style="{StaticResource Entry_BDetail}" />
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout>
+                            <Label Style="{StaticResource Lbl_BDetail}" Text="ユーザー氏名" />
+                            <Entry x:Name="UserNameTxt" 
+                                   Text="BBBB" 
+                                   Placeholder="例: 山田 太郎" 
+                                   Style="{StaticResource Entry_BDetail}" 
+                                   MaxLength="100" />
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout>
+                            <Label Style="{StaticResource Lbl_BDetail}" Text="ユーザー区分" />
+                            <RadioButton Content="利用者" 
+                                         Margin="{StaticResource InputLeftBaseMargin}" 
+                                         HeightRequest="-1"
+                                         IsChecked="True" />
+                            <RadioButton Content="管理者" 
+                                         Margin="{StaticResource InputLeftBaseMargin}"
+                                         HeightRequest="-1"/>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout>
+                            <Label Style="{StaticResource Lbl_BDetail}" Text="パスワード" />
+                            <Entry x:Name="PasswordTxt" 
+                                   Placeholder="例: ********" 
+                                   Style="{StaticResource Entry_BDetail}" 
+                                   IsPassword="True" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helper="clr-namespace:CO2.At.Src.bDomain.Helpers"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:employee="clr-namespace:CO2.At.Src.aFunc.Employee"
+             xmlns:viewmodel="clr-namespace:CO2.At.Src.aWinForm.bViewModels"
+             x:Class="CO2.At.Src.aWinForm.aViews.Vw623_Employee"
+             x:DataType="viewmodel:EmpVM"
+             x:Name="Employee"
+             >
+    <ContentPage.Resources>
+
+
+        <Thickness x:Key="MarginLbl" Top="8" Right="0" Bottom="0" Left="0" />
+        <Thickness x:Key="InputLeftBaseMargin" Top="8" Right="0" Bottom="0" Left="16" />
+        <Thickness x:Key="MarginLbl3" Top="0" Right="8" Bottom="0" Left="8" />
+
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <ScrollView>
+            <VerticalStackLayout Margin="{StaticResource MgnHeaderBase}">
+
+                <Frame Style="{StaticResource Frm_App}" Margin="{StaticResource MarginLbl3}">
+                    <VerticalStackLayout Spacing="10">
+
+                        <!-- ユーザーID --><!--
+                        <HorizontalStackLayout>
+                            <Label Style="{StaticResource Lbl_Vw22}" Text="社員ID" />
+                            <Entry x:Name="EmployeeIdTxt"
+                                   Placeholder="例: 12345" 
+                                   Style="{StaticResource Entry_BDetail}" />
+                        </HorizontalStackLayout>-->
+
+                        <HorizontalStackLayout>
+                            <Label Style="{StaticResource Lbl_Vw22}" Text="社員氏名" />
+                            <Entry x:Name="EmployeeNameTxt" 
+                                   Text="{Binding EmployeeDetail.EmpName}" 
+                                   Placeholder="例: 山田 太郎" 
+                                   Style="{StaticResource Entry_BDetail}" 
+                                   MaxLength="100" />
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout>
+                            <Label Style="{StaticResource Lbl_Vw22}" Text="組織子ID" />
+                            <Entry x:Name="OrganizationChildIdTxt" 
+                                   Text="{Binding EmployeeDetail.EmpName}" 
+                                   Style="{StaticResource Entry_BDetail}" 
+                                   MaxLength="100" />
+                        </HorizontalStackLayout>
+                        
+
+                    </VerticalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

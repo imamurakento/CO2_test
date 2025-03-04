@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CO2.At.Src.aWinForm.aViews.Vw32"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    >
+    
+    <ContentPage.Resources>
+        <x:String x:Key="MarginLbl">20,0,0,0</x:String>
+        <x:String x:Key="MarginLbl2">20,0,0,20</x:String>
+    </ContentPage.Resources>
+    
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Image
+                Source="dotnet_bot.png"
+                HeightRequest="185"
+                Aspect="AspectFit"
+                SemanticProperties.Description="dot net bot in a race car number eight" />
+            <Label
+                Text="保証金入出金"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+
+
+            <HorizontalStackLayout Margin="{StaticResource  MarginLbl}">
+                <Label
+                    VerticalOptions="Center" WidthRequest="100" Text="合計"/>
+                <Label
+                    WidthRequest="300" Text="金額100" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Margin="{StaticResource  MarginLbl}">
+                <Label
+                    VerticalOptions="Center" WidthRequest="100" Text="登録日付"/>
+                <DatePicker
+                    WidthRequest="300" x:Name="DatePicker" DateSelected="DateSelected"/>
+
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Margin="{StaticResource  MarginLbl}">
+                <Label
+                    VerticalOptions="Center" WidthRequest="100" Text="預かり証番号"/>
+                <Entry
+                    WidthRequest="300"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Margin="{StaticResource  MarginLbl}">
+                <Label
+                    VerticalOptions="Center" WidthRequest="100" Text="入出区分" />
+                <Picker x:Name="select" WidthRequest="300">
+                    <Picker.Items>
+                        <x:String>入金</x:String>
+                        <x:String>出金</x:String>
+                        <x:String>振替入金</x:String>
+                        <x:String>振替出金</x:String>
+                    </Picker.Items>
+                </Picker>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Margin="{StaticResource  MarginLbl2}">
+                <Label
+                    VerticalOptions="Center" WidthRequest="100"  Text="金額" />
+                <Entry
+                    WidthRequest="300"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Margin="{StaticResource  MarginLbl2}">
+                <Label
+                    Text="金額" WidthRequest="300"/>
+                <Label Text="" x:Name="ShowDate"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Button
+                    Margin="100,0,0,10" WidthRequest="80" Text="登録" x:Name="SubBtn" />
+                <Button
+                    Margin="10,0,0,10" WidthRequest="80" Text="閉じる" x:Name="CloseBtn" Clicked="CloseBtn_Clicked"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

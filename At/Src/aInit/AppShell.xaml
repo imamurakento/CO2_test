@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="CO2.At.Src.aInit.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:aViews="clr-namespace:CO2.At.Src.aWinForm.aViews"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="False"
+>
+
+    <ShellContent Route="Vw0" ContentTemplate="{DataTemplate  aViews:Vw0}"/>
+    <ShellContent Route="Vw1" ContentTemplate="{DataTemplate  aViews:Vw1}"/>
+    <ShellContent Route="Vw21" ContentTemplate="{DataTemplate aViews:Vw21}"/>
+    <ShellContent Route="Vw3" ContentTemplate="{DataTemplate aViews:Vw3}"/>
+    <ShellContent Route="Vw5" ContentTemplate="{DataTemplate aViews:Vw5}"/>
+    <ShellContent Route="Vw61Employee" ContentTemplate="{DataTemplate aViews:Vw61Employee}"/>
+
+    <!-- https://pg-himajin.com/dotnet/maui/responsive-design/ -->
+    <!-- 追加してみた例 -->
+    <!--<VisualStateManager.VisualStateGroups>
+        <VisualStateGroupList>
+            <VisualStateGroup>
+                <VisualState Name="Small">
+                    <VisualState.StateTriggers>
+                        --><!-- ウィンドウの幅（500未満） --><!--
+                        <AdaptiveTrigger MinWindowWidth="0"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        --><!-- サイドメニューを非表示 --><!--
+                        <Setter Property="FlyoutBehavior" Value="Disabled"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState Name="Medium">
+                    <VisualState.StateTriggers>
+                        --><!-- ウィンドウの幅（500以上 1000未満） --><!--
+                        <AdaptiveTrigger MinWindowWidth="500"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        --><!-- ハンバーガーメニューでサイドメニューの表示・非表示を切り替え --><!--
+                        <Setter Property="FlyoutBehavior" Value="Flyout"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState Name="Large">
+                    <VisualState.StateTriggers>
+                        --><!-- ウィンドウの幅（1000以上） --><!--
+                        <AdaptiveTrigger MinWindowWidth="1000"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        --><!-- サイドメニューを表示 --><!--
+                        <Setter Property="FlyoutBehavior" Value="Flyout"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateGroupList>
+    </VisualStateManager.VisualStateGroups>-->
+    <!-- ここまで -->
+
+
+
+</Shell>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CO2.At.Src.aWinForm.aViews.Vw522_GoodDetai"
+             >
+    <VerticalStackLayout Padding="10" 
+                     Spacing="15">
+        <!-- 商品名 -->
+        <HorizontalStackLayout>
+            <Label Text="商品名"
+               VerticalOptions="Center"
+               WidthRequest="80"/>
+            <Entry x:Name="productNameEntry" 
+               Placeholder="商品名を入力" 
+               HorizontalOptions="FillAndExpand" />
+        </HorizontalStackLayout>
+
+        <!-- 基準通貨 -->
+        <HorizontalStackLayout>
+            <Label Text="基準通貨" 
+               VerticalOptions="Center" 
+               WidthRequest="80"/>
+            <Picker x:Name="currencyPicker" 
+                HorizontalOptions="FillAndExpand">
+                <!-- 中身をここに追加 -->
+            </Picker>
+        </HorizontalStackLayout>
+
+        <!-- 取引単位 Label and Entry -->
+        <HorizontalStackLayout>
+            <Label Text="取引単位" 
+               VerticalOptions="Center" 
+               WidthRequest="80"/>
+            <Entry x:Name="tradeUnitEntry" 
+               HorizontalOptions="FillAndExpand"/>
+        </HorizontalStackLayout>
+
+        <!-- 取引保証金 -->
+        <HorizontalStackLayout>
+            <Label Text="取引保証金" 
+               VerticalOptions="Center" 
+               WidthRequest="80"/>
+            <Entry x:Name="depositEntry" 
+               HorizontalOptions="FillAndExpand"/>
+        </HorizontalStackLayout>
+
+        <!-- 登録とキャンセルボタン -->
+        <HorizontalStackLayout HorizontalOptions="End" 
+                           Spacing="10">
+            <Button 
+                Text="登録" 
+                WidthRequest="90"
+                Clicked="RegisterButtonClicked"/>
+            <Button 
+                    Text="キャンセル" 
+                WidthRequest="90"
+                Clicked="CancelButton_Clicked"/>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+
+</ContentPage>

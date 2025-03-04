@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    x:Class="CO2.At.Src.aWinForm.aViews.Vw0"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
+    xmlns:helper="clr-namespace:CO2.At.Src.bDomain.Helpers"
+    >
+
+    <ScrollView>
+        <!--<helper:ViewBox  Stretch="Uniform" StretchDirection="Both" HorizontalOptions="Start" VerticalOptions="Start">-->
+            <Frame Grid.Row="0" Style="{StaticResource Frm_App}"  Margin="50,50,50,50">
+                <VerticalStackLayout Spacing="25" >
+
+                    <Label
+                        Grid.Row="0" Style="{StaticResource Lbl_BDetail}"  Margin="16,100,8,16" HorizontalTextAlignment="Center" 
+                        Text="ユーザー名とパスワードを入力してください！"/>
+
+
+                    <Label
+                        Grid.Row="0" Style="{StaticResource Lbl_BDetail}"   WidthRequest="600" Margin="16,8,8,16" HorizontalTextAlignment="Center"
+                        Text="ユーザー名:1を入力"/>
+                    <Entry
+                        WidthRequest="500" Margin="8, 0, 0, 0" HorizontalOptions="FillAndExpand" MaxLength="20" HeightRequest="50"
+                        x:Name="UserNameForm"
+                        />
+                    <Label
+                        Grid.Row="0" Style="{StaticResource Lbl_BDetail}"  WidthRequest="600" Margin="16,8,8,16" HorizontalTextAlignment="Center"
+                        Text="パスワード:1を入力"/>
+                    <Entry
+                        WidthRequest="500" Margin="8, 0, 0, 0" HorizontalOptions="FillAndExpand" MaxLength="20" HeightRequest="50" x:Name="PasswordForm"/>
+
+                    <Button
+                        x:Name="LogInButton"
+                        Text="ログイン"
+                        Clicked="LogInButton_Clicked"
+                         BackgroundColor="{StaticResource ColorAccent}" WidthRequest="600" TextColor="White" FontAttributes="Bold" FontSize="24" />
+                    <Label
+                        x:Name="ErrorText"
+                        Text=""/>
+
+                </VerticalStackLayout>
+            </Frame>
+        <!--</helper:ViewBox>-->
+    </ScrollView>
+
+</ContentPage>

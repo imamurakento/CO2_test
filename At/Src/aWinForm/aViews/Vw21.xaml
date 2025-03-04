@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
+    xmlns:helper="clr-namespace:CO2.At.Src.bDomain.Helpers"
+    xmlns:viewmodel="clr-namespace:CO2.At.Src.aWinForm.bViewModels"
+    xmlns:customer="clr-namespace:CO2.At.Src.aFunc.Customer"
+    xmlns:entities="clr-namespace:CO2.At.Src.bDomain.Entities"
+    x:Name="xNameVw1"
+    x:Class="CO2.At.Src.aWinForm.aViews.Vw21"
+    x:DataType="viewmodel:CmrVM"
+    Loaded="Window_Loaded"
+    >
+
+    <ContentPage.Resources>
+
+        <Thickness x:Key="MgnItem" Left="8" Top="0" Right="0" Bottom="0" />
+        <Thickness x:Key="MgnAkasatana" Left="5" Top="0" Right="1" Bottom="0" />
+        <Thickness x:Key="MgnData" Left="16" Top="0" Right="8" Bottom="0" />
+        <Thickness x:Key="MgnFrame" Left="0" Top="0" Right="0" Bottom="3" />
+
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <!--<ScrollView>-->
+        <!--<VerticalStackLayout >-->
+
+        <Grid Margin="{StaticResource MgnHeaderBase}" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="8*" />
+
+            </Grid.RowDefinitions>
+            <Frame  Grid.Row="0" Style="{StaticResource Frm_App}"  Margin="{StaticResource MgnFrame}"  >
+
+                <helper:ViewBox  Stretch="UniformToFill" StretchDirection="Both">
+
+                    <!--ToDo:選択が他と表示がおかしい-->
+                    <HorizontalStackLayout Margin="{StaticResource  MgnItem}" HorizontalOptions="Start" Spacing="16" HeightRequest="15" >
+                        <Button x:Name="CustomerSelect" Text="選択" Command="{Binding SelectCustomerCommand}" 
+                                Style="{StaticResource Btn_App}" WidthRequest="100" Padding="0" 
+                                FontSize="10" HeightRequest="20"/>
+                        <Button Text="新規" Command="{Binding ShowNewCustomerCommand}" 
+                                Style="{StaticResource Btn_App}" WidthRequest="100" Padding="0" 
+                                FontSize="10" HeightRequest="20"/>
+                        <Button Text="帳票" Command="{Binding ReportCustomerCommand}" 
+                                Style="{StaticResource Btn_App}" WidthRequest="100" Padding="0" 
+                                FontSize="10" HeightRequest="20"/>
+                        <Button Text="過去の顧客" Command="{Binding LoadDeleteCustomersCommand}" 
+                                Style="{StaticResource Btn_App}" WidthRequest="100" Padding="0" 
+                                FontSize="10" HeightRequest="20"/>
+                        <Button x:Name="CustomerCancel" Text="キャンセル" Command="{Binding CloseWindowCommand}" 
+                                Style="{StaticResource Btn_App}" WidthRequest="100"  Padding="0" 
+                                FontSize="10" HeightRequest="20"/>
+                    </HorizontalStackLayout>
+
+                </helper:ViewBox>
+
+            </Frame>
+            <Frame  Grid.Row="1" Style="{StaticResource Frm_App}"  Margin="{StaticResource MgnFrame}" >
+
+                <helper:ViewBox  Stretch="UniformToFill" StretchDirection="Both">
+                    <VerticalStackLayout>
+
+                        <HorizontalStackLayout HorizontalOptions="Start" Margin="0,0,0,5">
+                            <Label Text="絞り込み検索項目" 
+                                   Style="{StaticResource Lbl_Upper}" Margin="{StaticResource MgnItem}" FontSize="10" HeightRequest="20"/>
+                            <Label x:Name="PersonalPhoneNumber" Text="個人電話番号" 
+                                   Style="{StaticResource Lbl_FixedDisp}" Margin="{StaticResource MgnItem}" FontSize="10"/>
+                            <Entry Text="{Binding SearchPersonalPhoneNumber}" 
+                                   Style="{StaticResource Entry_BDetail}" WidthRequest="100" Margin="{StaticResource MgnItem}"  HorizontalOptions="FillAndExpand" MaxLength="20" FontSize="7" HeightRequest="20" MinimumHeightRequest="0"></Entry>
+                            <Label Text="会社電話番号" 
+                                   Style="{StaticResource Lbl_FixedDisp}" Margin="{StaticResource MgnItem}" FontSize="10"/>
+                            <Entry Text="{Binding SearchCompanyPhoneNumber}" 
+                                   Style="{StaticResource Entry_BDetail}" WidthRequest="100" Margin="{StaticResource MgnItem}" HorizontalOptions="FillAndExpand" MaxLength="20" FontSize="7" HeightRequest="20" MinimumHeightRequest="0"></Entry>
+                            <Label Text="顧客名" 
+                                   Style="{StaticResource Lbl_FixedDisp}" Margin="{StaticResource MgnItem}" FontSize="10"/>
+                            <Entry Text="{Binding SearchFullName}"
+                                   Style="{StaticResource Entry_BDetail}" WidthRequest="100" Margin="{StaticResource MgnItem}" HorizontalOptions="FillAndExpand" MaxLength="20" FontSize="7" HeightRequest="20" MinimumHeightRequest="0"></Entry>
+                            <Label Text="フリガナ" 
+                                   Style="{StaticResource Lbl_FixedDisp}" Margin="{StaticResource MgnItem}" FontSize="10"/>
+                            <Entry Text="{Binding SearchFurigana}"
+                                   Style="{StaticResource Entry_BDetail}" WidthRequest="100" Margin="{StaticResource MgnItem}" HorizontalOptions="FillAndExpand" MaxLength="20" FontSize="7" HeightRequest="20" MinimumHeightRequest="0"></Entry>
+                            <Button Command="{Binding SearchPartialCustomerCommand}" 
+                                    CommandParameter="{Binding Text, Source={x:Reference PersonalPhoneNumber}}"  
+                                    Text="絞込み検索" 
+                                    Style="{StaticResource Btn_App}"  Margin="{StaticResource MgnAkasatana}" Padding="0" HeightRequest="20" FontSize="10">
+                            </Button>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout  Margin="{StaticResource  MgnAkasatana}">
+                            <Button Command="{Binding SearchCustomerCommand}" CommandParameter="ア" Text="ア" Style="{StaticResource Btn_App}" Margin="{StaticResource   MgnAkasatana}" Padding="0" HeightRequest="20" FontSize="10"/>
+                            <Button Command="{Binding SearchCustomerCommand}" CommandParameter="カ" Text="カ" Style="{StaticResource Btn_App}" Margin="{StaticResource   MgnAkasatana}" Padding="0" HeightRequest="20" FontSize="10"/>
+                            <Button Command="{Binding SearchCustomerCommand}" CommandParameter="サ" Text="サ" Style="{StaticResource Btn_App}" Margin="{StaticResource   MgnAkasatana}" Padding="0" HeightRequest="20" FontSize="10"/>
+                            <Button Command="{Binding SearchCustomerCommand}" CommandParameter="タ" Text="タ" Style="{StaticResource Btn_App}" Margin="{StaticResource   MgnAkasatana}" Padding="0" HeightRequest="20" FontSize="10"/>
+                            <Button Command="{Binding SearchCustomerCommand}" CommandParameter="ナ" Text="ナ" Style="{StaticResource Btn_App}" Margin="{StaticResource   MgnAkasatana}" Padding="0" HeightRequest="20" FontSize="10"/>
+                            <Button Command="{Binding SearchCustomerCommand}" CommandParameter="ハ" Text="ハ" Style="{StaticResource Btn_App}" Margin="{StaticResource   MgnAkasatana}" Padding="0" HeightRequest="20" FontSize="10"/>
+                            <Button Command="{Binding SearchCustomerCommand}" CommandParameter="マ" Text="マ" Style="{StaticResource Btn_App}" Margin="{StaticResource   MgnAkasatana}" Padding="0" HeightRequest="20" FontSize="10"/>
+                            <Button Command="{Binding SearchCustomerCommand}" CommandParameter="ヤ" Text="ヤ" Style="{StaticResource Btn_App}" Margin="{StaticResource   MgnAkasatana}" Padding="0" HeightRequest="20" FontSize="10"/>
+                            <Button Command="{Binding SearchCustomerCommand}" CommandParameter="ラ" Text="ラ" Style="{StaticResource Btn_App}" Margin="{StaticResource   MgnAkasatana}" Padding="0" HeightRequest="20" FontSize="10"/>
+                            <Button Command="{Binding SearchCustomerCommand}" CommandParameter="ワ" Text="ワ" Style="{StaticResource Btn_App}" Margin="{StaticResource   MgnAkasatana}" Padding="0" HeightRequest="20" FontSize="10"/>
+                            <Button Command="{Binding SearchAllCommand}" Text="全て" Style="{StaticResource Btn_App}" Margin="{StaticResource   MgnAkasatana}" Padding="0" HeightRequest="20" FontSize="10"/>
+                        </HorizontalStackLayout>
+
+                    </VerticalStackLayout >
+                </helper:ViewBox>
+            </Frame>
+
+            <Frame  Grid.Row="2" Style="{StaticResource Frm_App}"  Margin="{StaticResource MgnFrame}" >
+
+                <dg:DataGrid  Grid.Row="1"
+                              ItemsSource="{Binding CustomersList}" SelectedItem="{Binding SelectedCustomer}">
+
+                    <dg:DataGrid.RowsBackgroundColorPalette><dg:PaletteCollection x:Name="RowPalette"/></dg:DataGrid.RowsBackgroundColorPalette>
+
+                    <!-- ========================================================================================================== -->
+                    <!--                                               カラム定義                                                   -->
+                    <!-- ========================================================================================================== -->
+
+                    <dg:DataGrid.Columns Width="Auto">
+
+                        <dg:DataGridColumn PropertyName="CustomerNumber" CellTemplate="{StaticResource dgData}">
+                            <dg:DataGridColumn.FormattedTitle >
+                                <FormattedString >
+                                    <Span Text="顧客ID" Style="{StaticResource dgSpan}"/>
+                                </FormattedString>
+                            </dg:DataGridColumn.FormattedTitle>
+                        </dg:DataGridColumn>
+
+                        <dg:DataGridColumn PropertyName="FullName" CellTemplate="{StaticResource dgData}">
+                            <dg:DataGridColumn.FormattedTitle >
+                                <FormattedString >
+                                    <Span Text="顧客名" Style="{StaticResource dgSpan}"/>
+                                </FormattedString>
+                            </dg:DataGridColumn.FormattedTitle>
+                        </dg:DataGridColumn>
+
+                        <dg:DataGridColumn PropertyName="Furigana" CellTemplate="{StaticResource dgData}">
+                            <dg:DataGridColumn.FormattedTitle >
+                                <FormattedString >
+                                    <Span Text="フリガナ" Style="{StaticResource dgSpan}"/>
+                                </FormattedString>
+                            </dg:DataGridColumn.FormattedTitle>
+                        </dg:DataGridColumn>
+
+                        <dg:DataGridColumn PropertyName="PsnPhoneNumber.FullName" CellTemplate="{StaticResource dgData}">
+                            <dg:DataGridColumn.FormattedTitle >
+                                <FormattedString >
+                                    <Span Text="個人電話番号" Style="{StaticResource dgSpan}"/>
+                                </FormattedString>
+                            </dg:DataGridColumn.FormattedTitle>
+                        </dg:DataGridColumn>
+
+                        <dg:DataGridColumn PropertyName="EmpPhoneNumber.FullName" CellTemplate="{StaticResource dgData}">
+                            <dg:DataGridColumn.FormattedTitle >
+                                <FormattedString >
+                                    <Span Text="勤務先電話番号" Style="{StaticResource dgSpan}"/>
+                                </FormattedString>
+                            </dg:DataGridColumn.FormattedTitle>
+                        </dg:DataGridColumn>
+
+                        <!--ボタン-->
+                        <dg:DataGridColumn  Width="300">
+
+                            <dg:DataGridColumn.FormattedTitle>
+                                <FormattedString>
+                                    <Span Text="顧客単位" TextColor="White" FontSize="15" FontAttributes="Bold"/>
+                                </FormattedString>
+                            </dg:DataGridColumn.FormattedTitle>
+
+                            <dg:DataGridColumn.CellTemplate>
+                                <DataTemplate x:DataType="customer:ECustomer">
+                                    <HorizontalStackLayout>
+                                        <Button Text="詳細" Style="{StaticResource Btn_App}" TextColor="White" FontAttributes="Bold" FontSize="24" Padding="5" WidthRequest="95" Margin="2,1"  Loaded="OnButtonLoaded" HeightRequest="38"
+                                                                    Command="{Binding Source={x:Reference xNameVw1}, Path=BindingContext.ShowDetailCustomerCommand}" CommandParameter="{Binding CustomerNumber}"/>
+                                        <Button Text="編集" Style="{StaticResource Btn_App}" TextColor="White" FontAttributes="Bold" FontSize="24" Padding="5" WidthRequest="95" Margin="2,1" HeightRequest="38"
+                                                                    Command="{Binding Source={x:Reference xNameVw1}, Path=BindingContext.ShowEditCustomerCommand}" CommandParameter="{Binding CustomerNumber}"/>
+                                        <Button Text="削除" Style="{StaticResource Btn_App}" TextColor="White" FontAttributes="Bold" FontSize="24" Padding="5" WidthRequest="95" Margin="2,1" HeightRequest="38"
+                                                                    Command="{Binding Source={x:Reference xNameVw1}, Path=BindingContext.DeleteCustomerCommand}" CommandParameter="{Binding CustomerNumber}"/>
+                                    </HorizontalStackLayout>
+                                </DataTemplate>
+                            </dg:DataGridColumn.CellTemplate>
+                        </dg:DataGridColumn>
+
+                    </dg:DataGrid.Columns>
+
+                </dg:DataGrid>
+
+            </Frame>
+
+        </Grid>
+        <!--</VerticalStackLayout>-->
+
+        <!--</ScrollView>-->
+
+    </ContentPage.Content>
+</ContentPage>

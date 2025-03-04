@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:helper="clr-namespace:CO2.At.Src.bDomain.Helpers"
+             xmlns:vm="clr-namespace:CO2.At.Src.aWinForm.bViewModels"
+             xmlns:employee="clr-namespace:CO2.At.Src.aFunc.Employee"
+             xmlns:viewmodel="clr-namespace:CO2.At.Src.aWinForm.bViewModels"
+             x:Class="CO2.At.Src.aWinForm.aViews.Vw621_OrgParent"
+             x:DataType="viewmodel:EmpVM"
+             >
+    <ContentPage.Resources>
+
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <ScrollView>
+            <VerticalStackLayout Margin="{StaticResource Content-Space}">
+
+                <Frame Style="{StaticResource Frm_App}" Margin="{StaticResource MarginFrame}">
+                    <VerticalStackLayout Spacing="10">
+
+                        <!-- 組織親ID -->
+                        <HorizontalStackLayout>
+                            <Label Style="{StaticResource Lbl_BDetail}" Text="組織親ID" />
+                            <Entry x:Name="OrganizationParentIdTxt" 
+                               Placeholder="例: 12345" 
+                               Style="{StaticResource Entry_BDetail}"
+                                    Keyboard="Numeric"
+/>
+                        </HorizontalStackLayout>
+
+                        <!-- 組織親名称 -->
+                        <HorizontalStackLayout>
+                            <Label Style="{StaticResource Lbl_BDetail}" Text="組織親名称" />
+                            <Entry x:Name="OrganizationParentNameTxt" 
+                               Placeholder="例: " 
+                               Style="{StaticResource Entry_BDetail}" 
+                               MaxLength="100" />
+                        </HorizontalStackLayout>
+
+ 
+                  </VerticalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

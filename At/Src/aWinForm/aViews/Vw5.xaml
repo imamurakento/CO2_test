@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
+             x:Class="CO2.At.Src.aWinForm.aViews.Vw5"
+             xmlns:helper="clr-namespace:CO2.At.Src.bDomain.Helpers"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodel="clr-namespace:CO2.At.Src.aWinForm.bViewModels"
+             x:DataType="viewmodel:GoodVM"
+             >
+
+    <ContentPage.Resources>
+
+        <Thickness x:Key="MarginBtn" Left="16" Top="0" Right="16" Bottom="16" />
+        <Thickness x:Key="MarginLbl2" Left="16" Top="8" Right="8" Bottom="16" />
+        <Thickness x:Key="MarginLbl3" Left="0" Top="0" Right="32" Bottom="0" />
+        <Thickness x:Key="MgnItem" Left="8" Top="0" Right="0" Bottom="0" />
+        <Thickness x:Key="MgnData" Left="16" Top="0" Right="8" Bottom="0" />
+        <Thickness x:Key="MgnFrame" Left="0" Top="0" Right="0" Bottom="3" />
+
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+
+        <Grid Margin="{StaticResource MgnHeaderBase}" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="5*" />
+            </Grid.ColumnDefinitions>
+
+            <Frame Grid.Column="0"  Style="{StaticResource Frm_App}" Margin="{StaticResource Frame-Space}" >
+
+                <Grid Margin="{StaticResource MgnHeaderBase}" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <helper:ViewBox Grid.Row="0" Stretch="Uniform" StretchDirection="Both" HorizontalOptions="Center" VerticalOptions="Start">
+                        <VerticalStackLayout Grid.Row="0" WidthRequest="450" VerticalOptions="Start">
+
+                            <Label Text="選択為替" Style="{StaticResource Lbl_Upper}" />
+                            <Label Text="{Binding SelectedCurrency.Name}" Style="{StaticResource Lbl_Lower}" />
+
+                            <Label Text="選択商品" Style="{StaticResource Lbl_Upper}" />
+                            <Label Text="{Binding SelectedCurrency.Name}" Style="{StaticResource Lbl_Lower}" />
+
+                        </VerticalStackLayout>
+                    </helper:ViewBox>
+
+                    <!--ToDo:縦のラジオボタンに変更する-->
+                    <helper:ViewBox Grid.Row="1" Stretch="Uniform" StretchDirection="Both" HorizontalOptions="Center" VerticalOptions="Start">
+                        <VerticalStackLayout  Grid.Row="1" WidthRequest="450">
+                            <Button Text="商品" Clicked="Button_Clicked" CommandParameter="1" 
+                                    Style="{StaticResource Btn_App}" Margin="{StaticResource MarginBtn}"/>
+                            <Button Text="通貨" Clicked="Button_Clicked_1" CommandParameter="1" 
+                                    Style="{StaticResource Btn_App}" Margin="{StaticResource MarginBtn}"/>
+                            <Button Text="通貨切替テスト" Command="{Binding ChgFuncModeCommand}" CommandParameter="0" 
+                                    Style="{StaticResource Btn_App}" Margin="{StaticResource MarginBtn}"/>
+                            <Button Text="商品切替テスト" Command="{Binding ChgFuncModeCommand}" CommandParameter="1" 
+                                    Style="{StaticResource Btn_App}" Margin="{StaticResource MarginBtn}"/>
+
+                        </VerticalStackLayout>
+                    </helper:ViewBox>
+                </Grid>
+
+            </Frame>
+
+
+            <Frame Grid.Column="1" Style="{StaticResource Frm_App}"  Margin="{StaticResource Frame-Space}" >
+
+                <Grid Margin="{StaticResource MgnHeaderBase}" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="8*"/>
+
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Text="為替レート管理" Style="{StaticResource Lbl_H1}"   HorizontalTextAlignment="Start" Margin="{StaticResource   MarginLbl2}" />
+                    <Frame  Grid.Row="1" Style="{StaticResource Frm_App}"  Margin="{StaticResource MgnFrame}"  >
+
+                        <helper:ViewBox  Stretch="UniformToFill" StretchDirection="Both">
+
+                            <HorizontalStackLayout Margin="{StaticResource  MgnItem}" HorizontalOptions="Start" Spacing="16" HeightRequest="15" >
+                                <Button Text="為替レート変更" Command="{Binding ShowCurrencyDetailCommand}" 
+                                        Style="{StaticResource Btn_App}" WidthRequest="100" Padding="0"
+                                        FontSize="10" HeightRequest="20"/>
+                                <Button Text="新規" Command="{Binding ShowCurrencyDetailCommand}" 
+                                        Style="{StaticResource Btn_App}" WidthRequest="100" Padding="0" 
+                                        FontSize="10" HeightRequest="20"/>
+                                <Button Text="キャンセル" Command="{Binding CloseWindowCommand}" 
+                                        Style="{StaticResource Btn_App}"  WidthRequest="100"  Padding="0" 
+                                        FontSize="10" HeightRequest="20"/>
+
+                            </HorizontalStackLayout>
+
+                        </helper:ViewBox>
+
+                    </Frame>
+
+                    <dg:DataGrid Grid.Row="2" 
+                                 x:Name="Vw5Grid" ItemsSource="{Binding CurrencysList}" SelectedItem="{Binding SelectedCurrency}">
+                        
+                        <dg:DataGrid.RowsBackgroundColorPalette><dg:PaletteCollection x:Name="RowPalette"/></dg:DataGrid.RowsBackgroundColorPalette>
+
+                        <!-- ========================================================================================================== -->
+                        <!--                                               カラム定義                                                   -->
+                        <!-- ========================================================================================================== -->
+
+                        <dg:DataGrid.Columns Width="Auto">
+
+                            <dg:DataGridColumn PropertyName="Name" CellTemplate="{StaticResource dgData}">
+                                <dg:DataGridColumn.FormattedTitle >
+                                    <FormattedString >
+                                        <!--<Span Text="{Binding GridColumTitle1}" Style="{StaticResource dgSpan}"/>-->
+                                        <Span Text="基準通貨" Style="{StaticResource dgSpan}"/>
+                                    </FormattedString>
+                                </dg:DataGridColumn.FormattedTitle>
+                            </dg:DataGridColumn>
+
+                            <dg:DataGridColumn PropertyName="BaseRate" CellTemplate="{StaticResource dgData}">
+                                <dg:DataGridColumn.FormattedTitle >
+                                    <FormattedString >
+                                        <Span Text="基準レート" Style="{StaticResource dgSpan}"/>
+                                    </FormattedString>
+                                </dg:DataGridColumn.FormattedTitle>
+                            </dg:DataGridColumn>
+
+                            <dg:DataGridColumn PropertyName="Unit" CellTemplate="{StaticResource dgData}">
+                                <dg:DataGridColumn.FormattedTitle >
+                                    <FormattedString >
+                                        <Span Text="単位" Style="{StaticResource dgSpan}"/>
+                                    </FormattedString>
+                                </dg:DataGridColumn.FormattedTitle>
+                            </dg:DataGridColumn>
+
+                            <dg:DataGridColumn PropertyName="UpdatedAt" CellTemplate="{StaticResource dgData}">
+                                <dg:DataGridColumn.FormattedTitle >
+                                    <FormattedString >
+                                        <Span Text="更新日時" Style="{StaticResource dgSpan}"/>
+                                    </FormattedString>
+                                </dg:DataGridColumn.FormattedTitle>
+                            </dg:DataGridColumn>
+
+                            <!--<dg:DataGridColumn PropertyName="{Binding GridColumData1}" CellTemplate="{StaticResource dgData}">
+                                <dg:DataGridColumn.FormattedTitle >
+                                    <FormattedString >
+                                        <Span Text="{Binding GridColumTitle1}" Style="{StaticResource dgSpan}"/>
+                                    </FormattedString>
+                                </dg:DataGridColumn.FormattedTitle>
+                            </dg:DataGridColumn>-->
+
+
+                            <!--ボタン-->
+                            <dg:DataGridColumn  Width="300">
+
+                                <dg:DataGridColumn.FormattedTitle>
+                                    <FormattedString>
+                                        <Span Text="通貨単位" TextColor="White" FontSize="15" FontAttributes="Bold"/>
+                                    </FormattedString>
+                                </dg:DataGridColumn.FormattedTitle>
+
+                                <dg:DataGridColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <HorizontalStackLayout>
+                                            <Button Text="詳細" Style="{StaticResource Btn_App}" TextColor="White" FontAttributes="Bold" FontSize="24" Padding="5" WidthRequest="95" Margin="2,1" HeightRequest="38"
+                                                                    Command="{Binding Source={x:Reference xNameVw1}, Path=BindingContext.ShowCurrencyDetailCommand}" CommandParameter="{Binding SelectedCurrency.BaseCurrencyId}"/>
+                                            <!--<Button Text="詳細" Style="{StaticResource Btn_App}" TextColor="White" FontAttributes="Bold" FontSize="24" Padding="5" WidthRequest="95" Margin="2,1"  Loaded="OnButtonLoaded" HeightRequest="38"
+                                                                    Command="{Binding Source={x:Reference xNameVw1}, Path=BindingContext.ShowCurrencyDetailCommand}" CommandParameter="{Binding SelectedCurrency.BaseCurrencyId}"/>-->
+                                            <Button Text="編集" Style="{StaticResource Btn_App}" TextColor="White" FontAttributes="Bold" FontSize="24" Padding="5" WidthRequest="95" Margin="2,1" HeightRequest="38"
+                                                                    Command="{Binding Source={x:Reference xNameVw1}, Path=BindingContext.ShowCurrencyDetailCommand}" CommandParameter="{Binding SelectedCurrency.BaseCurrencyId}"/>
+                                            <Button Text="削除" Style="{StaticResource Btn_App}" TextColor="White" FontAttributes="Bold" FontSize="24" Padding="5" WidthRequest="95" Margin="2,1" HeightRequest="38"
+                                                                    Command="{Binding Source={x:Reference xNameVw1}, Path=BindingContext.ShowCurrencyDetailCommand}" CommandParameter="{Binding SelectedCurrency.BaseCurrencyId}"/>
+                                        </HorizontalStackLayout>
+                                    </DataTemplate>
+                                </dg:DataGridColumn.CellTemplate>
+                            </dg:DataGridColumn>
+
+                        </dg:DataGrid.Columns>
+
+                   </dg:DataGrid>
+
+                    <dg:DataGrid Grid.Row="2" 
+                                 x:Name="Vw5GridGood" ItemsSource="{Binding GoodList}" SelectedItem="{Binding SelectedGood}">
+
+                        <dg:DataGrid.RowsBackgroundColorPalette>
+                            <dg:PaletteCollection x:Name="RowPaletteGood"/>
+                        </dg:DataGrid.RowsBackgroundColorPalette>
+
+                        <!-- ========================================================================================================== -->
+                        <!--                                               カラム定義                                                   -->
+                        <!-- ========================================================================================================== -->
+
+                        <dg:DataGrid.Columns Width="Auto">
+
+                            <dg:DataGridColumn PropertyName="ProductName" CellTemplate="{StaticResource dgData}">
+                                <dg:DataGridColumn.FormattedTitle >
+                                    <FormattedString >
+                                        <Span Text="商品名" Style="{StaticResource dgSpan}"/>
+                                    </FormattedString>
+                                </dg:DataGridColumn.FormattedTitle>
+                            </dg:DataGridColumn>
+
+                            <dg:DataGridColumn PropertyName="BaseCurrencyId" CellTemplate="{StaticResource dgData}">
+                                <dg:DataGridColumn.FormattedTitle >
+                                    <FormattedString >
+                                        <Span Text="基準通貨ID" Style="{StaticResource dgSpan}"/>
+                                    </FormattedString>
+                                </dg:DataGridColumn.FormattedTitle>
+                            </dg:DataGridColumn>
+
+                            <dg:DataGridColumn PropertyName="TransactionUnit" CellTemplate="{StaticResource dgData}">
+                                <dg:DataGridColumn.FormattedTitle >
+                                    <FormattedString >
+                                        <Span Text="取引単位" Style="{StaticResource dgSpan}"/>
+                                    </FormattedString>
+                                </dg:DataGridColumn.FormattedTitle>
+                            </dg:DataGridColumn>
+
+                            <dg:DataGridColumn PropertyName="StandardPrice" CellTemplate="{StaticResource dgData}">
+                                <dg:DataGridColumn.FormattedTitle >
+                                    <FormattedString >
+                                        <Span Text="基準値段" Style="{StaticResource dgSpan}"/>
+                                    </FormattedString>
+                                </dg:DataGridColumn.FormattedTitle>
+                            </dg:DataGridColumn>
+
+                            <!--ボタン-->
+                            <dg:DataGridColumn  Width="300">
+
+                                <dg:DataGridColumn.FormattedTitle>
+                                    <FormattedString>
+                                        <Span Text="商品単位" TextColor="White" FontSize="15" FontAttributes="Bold"/>
+                                    </FormattedString>
+                                </dg:DataGridColumn.FormattedTitle>
+
+                                <dg:DataGridColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <HorizontalStackLayout>
+                                            <Button Text="詳細" Style="{StaticResource Btn_App}" TextColor="White" FontAttributes="Bold" FontSize="24" Padding="5" WidthRequest="95" Margin="2,1" HeightRequest="38"
+                                                                    Command="{Binding Source={x:Reference xNameVw1}, Path=BindingContext.ShowCurrencyDetailCommand}" CommandParameter="{Binding SelectedCurrency.BaseCurrencyId}"/>
+                                            <!--<Button Text="詳細" Style="{StaticResource Btn_App}" TextColor="White" FontAttributes="Bold" FontSize="24" Padding="5" WidthRequest="95" Margin="2,1"  Loaded="OnButtonLoaded" HeightRequest="38"
+                                                                    Command="{Binding Source={x:Reference xNameVw1}, Path=BindingContext.ShowCurrencyDetailCommand}" CommandParameter="{Binding SelectedCurrency.BaseCurrencyId}"/>-->
+                                            <Button Text="編集" Style="{StaticResource Btn_App}" TextColor="White" FontAttributes="Bold" FontSize="24" Padding="5" WidthRequest="95" Margin="2,1" HeightRequest="38"
+                                                                    Command="{Binding Source={x:Reference xNameVw1}, Path=BindingContext.ShowCurrencyDetailCommand}" CommandParameter="{Binding SelectedCurrency.BaseCurrencyId}"/>
+                                            <Button Text="削除" Style="{StaticResource Btn_App}" TextColor="White" FontAttributes="Bold" FontSize="24" Padding="5" WidthRequest="95" Margin="2,1" HeightRequest="38"
+                                                                    Command="{Binding Source={x:Reference xNameVw1}, Path=BindingContext.ShowCurrencyDetailCommand}" CommandParameter="{Binding SelectedCurrency.BaseCurrencyId}"/>
+                                        </HorizontalStackLayout>
+                                    </DataTemplate>
+                                </dg:DataGridColumn.CellTemplate>
+                            </dg:DataGridColumn>
+
+                        </dg:DataGrid.Columns>
+
+                    </dg:DataGrid>
+
+
+                </Grid>
+
+        </Frame>
+
+        </Grid>
+
+    </ContentPage.Content>
+
+
+</ContentPage>

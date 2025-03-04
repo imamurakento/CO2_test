@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CO2.At.Src.aWinForm.aViews.Vw523_CurrencyDetail"
+             >
+
+    <Grid Padding="20">
+        <!-- 3行3列のグリッドを定義 -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <!-- 1行目 -->
+            <RowDefinition Height="*" />
+            <!-- 2行目 -->
+            <RowDefinition Height="*" />
+            <!-- 3行目 -->
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <!-- 1列目 -->
+            <ColumnDefinition Width="2*" />
+            <!-- 2列目 -->
+            <ColumnDefinition Width="2*" />
+            <!-- 3列目 -->
+        </Grid.ColumnDefinitions>
+
+        <!-- 1行1列目に「通貨」ラベル -->
+        <Label Text="通貨" VerticalOptions="Center" HorizontalOptions="Start" FontSize="Medium" />
+
+        <!-- 1行2列目と3列目に通貨入力用のテキストボックス -->
+        <Entry x:Name="CurrencyEntry" Placeholder="通貨を入力" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="Center" Margin="5, 10, 5, 10" />
+        <!-- 上下に余白を追加 -->
+
+        <!-- 2行1列目に「単位」ラベル -->
+        <Label Text="単位" VerticalOptions="Center" HorizontalOptions="Start" FontSize="Medium" Grid.Row="1" />
+
+        <!-- 2行2列目と3列目に単位入力用のテキストボックス -->
+        <Entry x:Name="UnitEntry" Placeholder="単位を入力" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" VerticalOptions="Center" Margin="5, 10, 5, 10" />
+        <!-- 上下に余白を追加 -->
+
+        <!-- 3行2列目に登録ボタン -->
+        <Button Text="登録" Grid.Row="2" Grid.Column="1" VerticalOptions="Center" Margin="5, 10, 5, 10" Clicked="OnRegisterButtonClicked" />
+
+        <!-- 3行3列目にキャンセルボタン -->
+        <Button Text="キャンセル" Grid.Row="2" Grid.Column="2" VerticalOptions="Center" Margin="5, 10, 5, 10" Clicked="OnCancelButtonClicked" />
+    </Grid>
+</ContentPage>

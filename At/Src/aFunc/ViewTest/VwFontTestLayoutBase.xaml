@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="CO2.At.Src.aFunc.ViewTest.VwFontTestLayoutBase"
+             Title="VwViewTest">
+    <VerticalStackLayout>
+        <Label  Text="垂直項目1" Style="{StaticResource Lbl_Vw22}" />
+        <Entry  Placeholder="フォントの長さの確認チェックに利用してください。" Style="{StaticResource Entry_BDetail}" />
+
+        <HorizontalStackLayout >
+            <Label  Text="水平項目1" Style="{StaticResource Lbl_Vw22}" />
+            <Entry  Placeholder="フォントの長さの確認チェックに利用してください。" Style="{StaticResource Entry_BDetail}" />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout  >
+            <Label Text="入力チェック基本フォーマット1" Style="{StaticResource Lbl_BDetail}"   />
+
+            <Entry  WidthRequest="300" Style="{StaticResource Entry_BDetail}" Margin="{StaticResource  InputLeftBaseMargin}" MaxLength="4">
+
+                <Entry.Behaviors>
+                    <toolkit:EventToCommandBehavior EventName="Unfocused" />
+                    <toolkit:EventToCommandBehavior EventName="Completed"/>
+                </Entry.Behaviors>
+
+                <Entry.Triggers>
+                    <DataTrigger
+                        TargetType="Entry" Value="False">
+                        <Setter Property="BackgroundColor" Value="{StaticResource EntryErrorColor}" />
+                    </DataTrigger>
+                </Entry.Triggers>
+            </Entry>
+        </HorizontalStackLayout  >
+
+        <HorizontalStackLayout>
+            <Label Text="入力チェックエラー表示基本フォーマット" Style="{StaticResource Lbl_BDetail}" IsVisible="False"  />
+            <Label Text="{Binding DetailCustomer.EmpPhoneNumber.ValidationErrorMsg}" Style="{StaticResource Lbl_ErrorMsg}" Margin="80,0,0,0"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout >
+            <Button Text="水平ボタン1" Style="{StaticResource Btn_App}" Margin="{StaticResource MarginBtn}"/>
+            <Button Text="水平ボタン2" Style="{StaticResource Btn_App}" Margin="{StaticResource MarginBtn}"/>
+        </HorizontalStackLayout>
+
+    </VerticalStackLayout>
+</ContentPage>

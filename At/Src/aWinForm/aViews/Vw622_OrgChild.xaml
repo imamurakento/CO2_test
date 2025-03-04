@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
+             xmlns:helper="clr-namespace:CO2.At.Src.bDomain.Helpers"
+             xmlns:vm="clr-namespace:CO2.At.Src.aWinForm.bViewModels"
+             xmlns:employee="clr-namespace:CO2.At.Src.aFunc.Employee"
+             xmlns:viewmodel="clr-namespace:CO2.At.Src.aWinForm.bViewModels"
+             x:Class="CO2.At.Src.aWinForm.aViews.Vw622_OrgChild"
+             x:DataType="viewmodel:EmpVM"
+             >
+    <ContentPage.Resources>
+
+        <Thickness x:Key="MarginLbl" Top="8" Right="0" Bottom="0" Left="0" />
+        <Thickness x:Key="InputLeftBaseMargin" Top="8" Right="0" Bottom="0" Left="16" />
+        <Thickness x:Key="MarginLbl3" Top="0" Right="8" Bottom="0" Left="8" />
+
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <VerticalStackLayout Margin="{StaticResource MgnHeaderBase}">
+
+                <Frame Style="{StaticResource Frm_App}" Margin="{StaticResource MarginLbl3}">
+                    <VerticalStackLayout Spacing="10">
+
+                        <!-- 組織子ID -->
+                        <HorizontalStackLayout>
+                            <Label Style="{StaticResource Lbl_BDetail}" Text="組織子ID" />
+                            <Entry x:Name="OrganizationChildIdTxt" 
+                               Placeholder="例: 12345" 
+                               Style="{StaticResource Entry_BDetail}"
+                                    Keyboard="Numeric"
+/>
+                        </HorizontalStackLayout>
+
+                        <!-- 組織子名称 -->
+                        <HorizontalStackLayout>
+                            <Label Style="{StaticResource Lbl_BDetail}" Text="組織子名称" />
+                            <Entry x:Name="OrganizationChildNameTxt" 
+                               Placeholder="例: " 
+                               Style="{StaticResource Entry_BDetail}" 
+                               MaxLength="100" />
+                        </HorizontalStackLayout>
+                        
+                        <!-- 組織親ID -->
+                        <HorizontalStackLayout>
+                            <Label Style="{StaticResource Lbl_BDetail}" Text="組織親ID" />
+                            <Entry x:Name="OrganizationParentIdTxt" 
+                                Placeholder="例: " 
+                                Style="{StaticResource Entry_BDetail}" 
+                                    Keyboard="Numeric"
+
+                                 />
+                        </HorizontalStackLayout>
+
+                            <dg:DataGrid x:Name="dataGrid" ItemsSource="{Binding TreeNodeList}" SelectedItem="{Binding SelectedNode}"
+                                 RowHeight="40" HeaderHeight="50" Margin="{StaticResource    MarginLbl5}" HeaderBackground="{StaticResource ColorAccent}" IsVisible="True"
+                             BackgroundColor="{StaticResource ColorAccent}" ActiveRowColor="{StaticResource ColorAccent}" >
+
+                                <dg:DataGrid.RowsBackgroundColorPalette>
+                                    <dg:PaletteCollection x:Name="RowPalette"/>
+                                </dg:DataGrid.RowsBackgroundColorPalette>
+
+                                <dg:DataGrid.Columns>
+
+                                    <!--顧客名-->
+                                    <dg:DataGridColumn PropertyName="NodeName" Width="0.3*">
+                                        <dg:DataGridColumn.FormattedTitle>
+                                            <FormattedString>
+                                                <Span Text="親組織名" TextColor="White" FontSize="15" FontAttributes="Bold"/>
+                                            </FormattedString>
+                                        </dg:DataGridColumn.FormattedTitle>
+                                    </dg:DataGridColumn>
+
+                                </dg:DataGrid.Columns>
+
+                                <!--<helper:ViewBox  Stretch="UniformToFill" StretchDirection="Both">
+
+                                    <HorizontalStackLayout Margin="8,8,16,16" HorizontalOptions="Start" Spacing="16">
+                                        <Button Style="{StaticResource Btn_App}" Text="組織親階層" Command="{Binding SelectParentCommand}" WidthRequest="100" HeightRequest="20" Padding="0" FontSize="15"/>
+                                        <Button Style="{StaticResource Btn_App}" Text="組織子階層" Command="{Binding SelectChildCommand}" WidthRequest="100" HeightRequest="20" Padding="0" FontSize="15"/>
+                                        <Button Style="{StaticResource Btn_App}" Text="社員" Command="{Binding SelectEmployeeCommand}" WidthRequest="100" HeightRequest="20" Padding="0" FontSize="15"/>
+                                        <Button Style="{StaticResource Btn_App}" Text="ユーザー" Command="{Binding SelectUserCommand}" WidthRequest="100" HeightRequest="20" Padding="0" FontSize="15"/>
+                                        <Button x:Name="CustomerCancel" Style="{StaticResource Btn_App}" Text="キャンセル" WidthRequest="100" HeightRequest="20" Padding="0" FontSize="15"/>
+                                    </HorizontalStackLayout>
+
+                                </helper:ViewBox>-->
+
+                        </dg:DataGrid>
+
+                    </VerticalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

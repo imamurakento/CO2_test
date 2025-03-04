@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CO2.At.Src.aWinForm.aViews.Vw3"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
+    xmlns:helper="clr-namespace:CO2.At.Src.bDomain.Helpers"
+    xmlns:viewmodel="clr-namespace:CO2.At.Src.aWinForm.bViewModels"
+    xmlns:customer="clr-namespace:CO2.At.Src.aFunc.Customer"
+    xmlns:entities="clr-namespace:CO2.At.Src.bDomain.Entities"
+    >
+
+    <ContentPage.Resources>
+        <Thickness x:Key="MgnItem" Left="8" Top="0" Right="0" Bottom="0" />
+        <Thickness x:Key="MgnData" Left="16" Top="0" Right="8" Bottom="0" />
+        <Thickness x:Key="MgnFrame" Left="0" Top="0" Right="0" Bottom="3" />
+
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Style="{StaticResource Lbl_H1}" Text="保証金と現金の入出金(入出金情報)" Margin="{StaticResource Frame-Space}" HorizontalTextAlignment="Start" />
+
+            <Frame  Grid.Row="1" Style="{StaticResource Frm_App}"  Margin="{StaticResource MgnFrame}" >
+                <dg:DataGrid Grid.Row="1" 
+                             ItemsSource="{Binding EnExAmounts}" SelectedItem="{Binding SelectedCustomer}"
+                             PaginationEnabled ="True" PageSizeVisible="True" PageSize="20" FooterBackground="WhiteSmoke"
+                             >
+                    
+                    <dg:DataGrid.RowsBackgroundColorPalette><dg:PaletteCollection x:Name="RowPalette"/></dg:DataGrid.RowsBackgroundColorPalette>
+
+                    <!-- ========================================================================================================== -->
+                    <!--                                               カラム定義                                                   -->
+                    <!-- ========================================================================================================== -->
+
+                    <dg:DataGrid.Columns Width="Auto">
+
+                        <dg:DataGridColumn PropertyName="No" CellTemplate="{StaticResource dgData}">
+                            <dg:DataGridColumn.FormattedTitle >
+                                <FormattedString >
+                                    <Span Text="No" Style="{StaticResource dgSpan}"/>
+                                </FormattedString>
+                            </dg:DataGridColumn.FormattedTitle>
+                        </dg:DataGridColumn>
+
+                        <dg:DataGridColumn PropertyName="Time" CellTemplate="{StaticResource dgData}">
+                            <dg:DataGridColumn.FormattedTitle >
+                                <FormattedString >
+                                    <Span Text="時間" Style="{StaticResource dgSpan}"/>
+                                </FormattedString>
+                            </dg:DataGridColumn.FormattedTitle>
+                        </dg:DataGridColumn>
+
+                        <dg:DataGridColumn PropertyName="EnExClassification" CellTemplate="{StaticResource dgData}">
+                            <dg:DataGridColumn.FormattedTitle >
+                                <FormattedString >
+                                    <Span Text="入出区分" Style="{StaticResource dgSpan}"/>
+                                </FormattedString>
+                            </dg:DataGridColumn.FormattedTitle>
+                        </dg:DataGridColumn>
+
+                        <dg:DataGridColumn PropertyName="AmountOfMoney" CellTemplate="{StaticResource dgData}">
+                            <dg:DataGridColumn.FormattedTitle >
+                                <FormattedString >
+                                    <Span Text="金額" Style="{StaticResource dgSpan}"/>
+                                </FormattedString>
+                            </dg:DataGridColumn.FormattedTitle>
+                        </dg:DataGridColumn>
+
+                        <dg:DataGridColumn PropertyName="DepCertNumber" CellTemplate="{StaticResource dgData}">
+                            <dg:DataGridColumn.FormattedTitle >
+                                <FormattedString >
+                                    <Span Text="預金証番号" Style="{StaticResource dgSpan}"/>
+                                </FormattedString>
+                            </dg:DataGridColumn.FormattedTitle>
+                        </dg:DataGridColumn>
+
+                    </dg:DataGrid.Columns>
+
+                </dg:DataGrid>
+
+            </Frame>
+
+            <HorizontalStackLayout Grid.Row="2" Margin="8,8,16,16" HorizontalOptions="Start" Spacing="16">
+
+                <Button Style="{StaticResource Btn_App}" Text="保証金入出金（現金）" FontSize="Medium"  WidthRequest="250" Clicked="BuySell_Clicked"/>
+                <Button Style="{StaticResource Btn_App}" Text="売買報告"  WidthRequest="250" x:Name="BuySell" />
+                <Button Style="{StaticResource Btn_App}" Text="残高照合"  WidthRequest="250"/>
+                <Button Style="{StaticResource Btn_App}" Text="振替履歴"  WidthRequest="250" x:Name="TransHis"/>
+                <Button Style="{StaticResource Btn_App}" Text="口座勘定元帳"  WidthRequest="250"  Clicked="TransHis_Clicked" />
+                <Button Text="キャンセル" Command="{Binding CloseWindowCommand}" Clicked="Cancel_Clicked"
+                                Style="{StaticResource Btn_App}"  WidthRequest="100"  Padding="0" 
+                                FontSize="10" HeightRequest="20"/>
+            </HorizontalStackLayout>
+
+        </Grid>
+
+
+    </ContentPage.Content>
+</ContentPage>

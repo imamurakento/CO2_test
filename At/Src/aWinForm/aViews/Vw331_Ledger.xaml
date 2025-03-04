@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CO2.At.Src.aWinForm.aViews.Vw331_Ledger"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
+    xmlns:helper="clr-namespace:CO2.At.Src.bDomain.Helpers"
+    xmlns:viewmodel="clr-namespace:CO2.At.Src.aWinForm.bViewModels"
+    xmlns:customer="clr-namespace:CO2.At.Src.aFunc.Customer"
+    xmlns:entities="clr-namespace:CO2.At.Src.bDomain.Entities"
+    >
+    
+    <ContentPage.Resources>
+        <x:String x:Key="MarginLbl">0,0,0,0</x:String>
+        <x:String x:Key="MarginLbl2">16,8,8,16</x:String>
+        <x:String x:Key="MarginLbl3">8,16,8,16</x:String>
+
+    </ContentPage.Resources>
+
+    <!--  Content  -->
+
+    <ContentPage.Content>
+        <ScrollView>
+
+            <Frame Style="{StaticResource Frm_App}" Margin="{StaticResource MgnHeaderBase}" >
+
+                <VerticalStackLayout>
+
+                    <VerticalStackLayout Margin="{StaticResource  MarginLbl}" Spacing="1">
+                        <Label Style="{StaticResource Lbl_H1}" Text="勘定元帳" Margin="{StaticResource  MarginLbl2}" HorizontalTextAlignment="Start"/>
+                        <Line X1="10" Y1="10" X2="2000" Y2="10" HorizontalOptions="FillAndExpand" Stroke="Gray" />
+
+                        <Frame Style="{StaticResource Frm_App}" Margin="{StaticResource  MarginLbl3}">
+                            <VerticalStackLayout>
+
+                                <Label Style="{StaticResource Lbl_H4}" Text="取引履歴" Margin="{StaticResource  MarginLbl2}" HorizontalTextAlignment="Start"/>
+
+                                <dg:DataGrid Grid.Row="1" 
+                                    x:Name="vw331Grid" 
+                                             ItemsSource="{Binding Transactions}" SelectedItem="{Binding SelectedCustomer}">
+
+                                    <dg:DataGrid.RowsBackgroundColorPalette><dg:PaletteCollection x:Name="RowPalette"/></dg:DataGrid.RowsBackgroundColorPalette>
+
+                                    <!-- ========================================================================================================== -->
+                                    <!--                                               カラム定義                                                   -->
+                                    <!-- ========================================================================================================== -->
+
+                                    <dg:DataGrid.Columns Width="Auto">
+
+                                        <dg:DataGridColumn PropertyName="TransactionID" CellTemplate="{StaticResource dgData}" Width="Auto">
+                                            <dg:DataGridColumn.FormattedTitle >
+                                                <FormattedString >
+                                                    <Span Text="取引" Style="{StaticResource dgSpan}"/>
+                                                </FormattedString>
+                                            </dg:DataGridColumn.FormattedTitle>
+                                        </dg:DataGridColumn>
+
+                                        <dg:DataGridColumn PropertyName="GoodName" CellTemplate="{StaticResource dgData}"  Width="Auto">
+                                            <dg:DataGridColumn.FormattedTitle >
+                                                <FormattedString >
+                                                    <Span Text="商品名" Style="{StaticResource dgSpan}" />
+                                                </FormattedString>
+                                            </dg:DataGridColumn.FormattedTitle>
+                                        </dg:DataGridColumn>
+
+                                        <dg:DataGridColumn PropertyName="SellingTime" CellTemplate="{StaticResource dgData}"  Width="Auto">
+                                            <dg:DataGridColumn.FormattedTitle >
+                                                <FormattedString >
+                                                    <Span Text="    売時間    " Style="{StaticResource dgSpan}"/>
+                                                </FormattedString>
+                                            </dg:DataGridColumn.FormattedTitle>
+                                        </dg:DataGridColumn>
+
+                                        <dg:DataGridColumn PropertyName="SellingPrice" CellTemplate="{StaticResource dgData}" Width="Auto">
+                                            <dg:DataGridColumn.FormattedTitle >
+                                                <FormattedString >
+                                                    <Span Text="売成立値段" Style="{StaticResource dgSpan}"/>
+                                                </FormattedString>
+                                            </dg:DataGridColumn.FormattedTitle>
+                                        </dg:DataGridColumn>
+
+                                        <dg:DataGridColumn PropertyName="SellingNumber" CellTemplate="{StaticResource dgData}" Width="Auto">
+                                            <dg:DataGridColumn.FormattedTitle >
+                                                <FormattedString >
+                                                    <Span Text="売枚数" Style="{StaticResource dgSpan}"/>
+                                                </FormattedString>
+                                            </dg:DataGridColumn.FormattedTitle>
+                                        </dg:DataGridColumn>
+
+                                        <dg:DataGridColumn PropertyName="BuyingTime" CellTemplate="{StaticResource dgData}" Width="Auto">
+                                            <dg:DataGridColumn.FormattedTitle >
+                                                <FormattedString >
+                                                    <Span Text="            買時間           " Style="{StaticResource dgSpan}"/>
+                                                </FormattedString>
+                                            </dg:DataGridColumn.FormattedTitle>
+                                        </dg:DataGridColumn>
+
+                                        <dg:DataGridColumn PropertyName="BuyingPrice" CellTemplate="{StaticResource dgData}" Width="Auto">
+                                            <dg:DataGridColumn.FormattedTitle >
+                                                <FormattedString >
+                                                    <Span Text="買成立値段" Style="{StaticResource dgSpan}"/>
+                                                </FormattedString>
+                                            </dg:DataGridColumn.FormattedTitle>
+                                        </dg:DataGridColumn>
+
+                                        <dg:DataGridColumn PropertyName="BuyingNumber" CellTemplate="{StaticResource dgData}" Width="Auto" >
+                                            <dg:DataGridColumn.FormattedTitle >
+                                                <FormattedString >
+                                                    <Span Text="買枚数" Style="{StaticResource dgSpan}"/>
+                                                </FormattedString>
+                                            </dg:DataGridColumn.FormattedTitle>
+                                        </dg:DataGridColumn>
+
+                                        <dg:DataGridColumn PropertyName="MarginAndOtherExchangeRate" CellTemplate="{StaticResource dgData}" Width="Auto">
+                                            <dg:DataGridColumn.FormattedTitle >
+                                                <FormattedString >
+                                                    <Span Text="為替レート" Style="{StaticResource dgSpan}"/>
+                                                </FormattedString>
+                                            </dg:DataGridColumn.FormattedTitle>
+                                        </dg:DataGridColumn>
+
+                                        <dg:DataGridColumn PropertyName="MarginAndOtherGainOnSales" CellTemplate="{StaticResource dgData}" Width="Auto">
+                                            <dg:DataGridColumn.FormattedTitle >
+                                                <FormattedString >
+                                                    <Span Text="売買差益" Style="{StaticResource dgSpan}"/>
+                                                </FormattedString>
+                                            </dg:DataGridColumn.FormattedTitle>
+                                        </dg:DataGridColumn>
+
+                                        <dg:DataGridColumn PropertyName="MarginAndOtherCommission" CellTemplate="{StaticResource dgData}" Width="Auto">
+                                            <dg:DataGridColumn.FormattedTitle >
+                                                <FormattedString >
+                                                    <Span Text="手数料" Style="{StaticResource dgSpan}"/>
+                                                </FormattedString>
+                                            </dg:DataGridColumn.FormattedTitle>
+                                        </dg:DataGridColumn>
+
+                                        <dg:DataGridColumn PropertyName="MarginAndOtherConsumptionTax" CellTemplate="{StaticResource dgData}" Width="Auto">
+                                            <dg:DataGridColumn.FormattedTitle >
+                                                <FormattedString >
+                                                    <Span Text="消費税" Style="{StaticResource dgSpan}"/>
+                                                </FormattedString>
+                                            </dg:DataGridColumn.FormattedTitle>
+                                        </dg:DataGridColumn>
+
+                                        <dg:DataGridColumn PropertyName="MarginAndOtherProfitAndLoss" CellTemplate="{StaticResource dgData}" Width="Auto">
+                                            <dg:DataGridColumn.FormattedTitle >
+                                                <FormattedString >
+                                                    <Span Text="取引損益金" Style="{StaticResource dgSpan}"/>
+                                                </FormattedString>
+                                            </dg:DataGridColumn.FormattedTitle>
+                                        </dg:DataGridColumn>
+
+                                    </dg:DataGrid.Columns>
+
+                                </dg:DataGrid>
+
+                            </VerticalStackLayout>
+                        </Frame>
+                       
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Frame>
+
+        </ScrollView>
+
+    </ContentPage.Content>
+
+
+</ContentPage>

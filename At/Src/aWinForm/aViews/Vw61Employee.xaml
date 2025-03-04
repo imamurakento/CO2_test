@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodel="clr-namespace:CO2.At.Src.aWinForm.bViewModels"
+             xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
+             xmlns:employee="clr-namespace:CO2.At.Src.aFunc.Employee"
+             xmlns:helper="clr-namespace:CO2.At.Src.bDomain.Helpers"
+             xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
+             xmlns:m="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
+             x:Name="xNameViewEmployee"
+             x:Class="CO2.At.Src.aWinForm.aViews.Vw61Employee"
+             x:DataType="viewmodel:EmpVM"
+             >
+    
+    <ContentPage.Resources>
+
+        <Thickness x:Key="MarginLbl6" Left="0" Top="5" Right="0" Bottom="5" />
+
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+
+        <!-- Frameの中にコントロールを重複すると警告がでる。スタックレイアウト等ではさむ必要がある-->
+        <!--<Label Text="TreeViewSample" FontSize="20" TextColor="Blue"/>-->
+
+        <Grid Margin="{StaticResource MgnHeaderBase}" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="6*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Frame  Grid.Row="0" Style="{StaticResource Frm_App}"  Margin="{StaticResource MarginLbl6}" >
+                <material:TreeView ItemsSource="{Binding TreeNodeList}" Margin="15" Background="{StaticResource ColorBase}" SelectionMode="Single"   UseAnimation="False" ParentChanged="TreeView_ParentChanged" ParentChanging="TreeView_ParentChanging" PropertyChanged="TreeView_PropertyChanged"
+                            SelectedItem="{Binding SelectedNode, Mode=TwoWay}" SelectionColor="{StaticResource ColorAccent}">
+                    <!--SelectedItem="{Binding SelectedNode}"-->
+                    <material:TreeView.ItemTemplate>
+                        <DataTemplate>
+                            <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                                <Image>
+                                    <Image.Triggers>
+                                        <DataTrigger TargetType="Image" Binding="{Binding ValueType}" Value="Parent">
+                                            <Setter Property="Source" Value="{FontImageSource FontFamily=FASolid, Color=Blue,Size=24,Glyph={x:Static fa:Solid.BuildingUser}}" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Image" Binding="{Binding ValueType}" Value="Child">
+                                            <Setter Property="Source" Value="{FontImageSource FontFamily=FASolid,Color=Blue, Size=24,Glyph={x:Static fa:Solid.UserGroup}}" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Image" Binding="{Binding ValueType}" Value="Employee">
+                                            <Setter Property="Source" Value="{FontImageSource FontFamily=FASolid,Color=Gray, Size=24,Glyph={x:Static fa:Solid.User}}" />
+                                        </DataTrigger>
+                                    </Image.Triggers>
+                                </Image>
+                                <Label FontSize="32" Text="{Binding ValueName}" FontAttributes="Bold" />
+                                <Label FontSize="32" Text="{Binding Children.Count, StringFormat='({0})'}" />
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </material:TreeView.ItemTemplate>
+                </material:TreeView>
+            </Frame>
+
+            <Frame  Grid.Row="1" Style="{StaticResource Frm_App}"  Margin="{StaticResource MarginLbl6}"  >
+
+                <helper:ViewBox  Stretch="UniformToFill" StretchDirection="Both">
+
+                    <HorizontalStackLayout Margin="8,8,16,16" HorizontalOptions="Start" Spacing="16">
+                        <Button Style="{StaticResource Btn_App}" Text="新規" Command="{Binding CRUDCommand}" CommandParameter="3" WidthRequest="100" HeightRequest="20" Padding="0" FontSize="15"/>
+                        <Button Style="{StaticResource Btn_App}" Text="詳細" Command="{Binding CRUDCommand}"  CommandParameter="2" WidthRequest="100" HeightRequest="20" Padding="0" FontSize="15"/>
+                        <Button Style="{StaticResource Btn_App}" Text="編集" Command="{Binding CRUDCommand}" CommandParameter="4" WidthRequest="100" HeightRequest="20" Padding="0" FontSize="15"/>
+                        <Button Style="{StaticResource Btn_App}" Text="削除" Command="{Binding CRUDCommand}" CommandParameter="5" WidthRequest="100" HeightRequest="20" Padding="0" FontSize="15"/>
+                        <Button Style="{StaticResource Btn_App}" Text="ユーザー" Command="{Binding SelectUserCommand}" WidthRequest="100" HeightRequest="20" Padding="0" FontSize="15"/>
+                    </HorizontalStackLayout>
+                </helper:ViewBox>
+            </Frame>
+
+        </Grid>
+
+    </ContentPage.Content>
+
+</ContentPage>

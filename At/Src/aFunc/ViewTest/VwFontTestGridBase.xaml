@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:helper="clr-namespace:CO2.At.Src.bDomain.Helpers"
+             xmlns:vm="clr-namespace:CO2.At.Src.aWinForm.bViewModels"
+             xmlns:employee="clr-namespace:CO2.At.Src.aFunc.Employee"
+             xmlns:customer="clr-namespace:CO2.At.Src.aFunc.Customer"
+             xmlns:viewmodel="clr-namespace:CO2.At.Src.aWinForm.bViewModels"
+             x:Class="CO2.At.Src.aFunc.ViewTest.VwFontTestGridBase"
+             x:DataType="viewmodel:CmrVM"
+             Title="OrganizationParentHierarchyPage">
+    <ContentPage.Resources>
+
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <helper:ViewBox  Stretch="Uniform" StretchDirection="Both" HorizontalOptions="Start" VerticalOptions="Start">
+           
+                    <!-- 列:2列 比率 1:4 -->
+            <Grid   RowSpacing="5"
+                    WidthRequest="2432" HeightRequest="1368" Margin="32" Padding="16" 
+                    BackgroundColor ="{StaticResource CplorFourth}"
+                   ColumnSpacing="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- 1行目 -->
+                <Label Grid.Row="0" Grid.Column="0" 
+                        Text="組織親ID" 
+                      
+                        Style="{StaticResource Lbl_BDetail}"/>
+                <Entry Grid.Row="0" Grid.Column="1" 
+                        x:Name="OrganizationParentIdTxt" 
+                       Text="AAAAAA"
+                        Placeholder="例: 12345" Keyboard="Numeric"
+                        Style="{StaticResource Entry_BDetail}" />
+
+                <!-- 2行目 -->
+                <Label Grid.Row="1" Grid.Column="0" 
+                        Text="組織親名称" 
+                        Style="{StaticResource Lbl_BDetail}"/>
+                <Entry Grid.Row="1" Grid.Column="1" 
+                       x:Name="OrganizationParentNameTxt" 
+                       Text="BBBBBB"
+                        Placeholder="例: CCCCC" MaxLength="100"
+                        Style="{StaticResource Entry_BDetail}" />
+
+                <!-- 3行目 -->
+                <Label  Grid.Row="2" Grid.Column="0" Text="入力チェック基本フォーマット1" Style="{StaticResource Lbl_BDetail}"   />
+
+                <Entry  Grid.Row="2" Grid.Column="1" HorizontalOptions="Start" WidthRequest="300" Style="{StaticResource Entry_BDetail}" >
+
+                    <Entry.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="Unfocused" />
+                        <toolkit:EventToCommandBehavior EventName="Completed"/>
+                    </Entry.Behaviors>
+
+                    <Entry.Triggers>
+                        <DataTrigger
+                    TargetType="Entry" Value="False">
+                            <Setter Property="BackgroundColor" Value="{StaticResource EntryErrorColor}" />
+                        </DataTrigger>
+                    </Entry.Triggers>
+                </Entry>
+
+                <Label  Grid.Row="3" Grid.Column="1"  Text="test" FontSize="18" TextColor="{StaticResource EntryErrorColor}" IsVisible="False" HorizontalOptions="Start" Margin="0,0,0,0">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding DetailCustomer.EmpPhoneNumber.IsValidFirst}" Value="false">
+                            <Setter Property="IsVisible" Value="True"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+
+                <!-- 4行目 -->
+                <Label Grid.Row="4" Grid.Column="0" 
+                     Text="氏名" 
+                     Style="{StaticResource Lbl_BDetail}"/>
+                <HorizontalStackLayout Grid.Row="4" Grid.Column="1">
+                    <Label  Text="姓：" VerticalTextAlignment="Center" FontSize="Medium" Margin="10,0,0,0"/>
+                    <Entry 
+                         Text="山田"
+                         Placeholder="例: 山田" MaxLength="100"
+                         WidthRequest="150"
+                         Style="{StaticResource Entry_BDetail}" />
+                    <Label  Text="名："  VerticalTextAlignment="Center" FontSize="Medium" Margin="10,0,0,0"/>
+                    <Entry 
+                          Text="太郎"
+                          Placeholder="例: 太郎" MaxLength="100"
+                          WidthRequest="150"
+                          Style="{StaticResource Entry_BDetail}" />
+                </HorizontalStackLayout>
+
+                <!-- 5行目 -->
+                <Label  Grid.Row="5" Grid.Column="0"  Text="勤務先電話番号" Style="{StaticResource Lbl_BDetail}"   />
+
+                <HorizontalStackLayout   Grid.Row="5" Grid.Column="1">
+                    <Entry Text="{Binding DetailCustomer.EmpPhoneNumber.FirstNumber}" 
+                         Placeholder="例:03" Keyboard="Numeric" MaxLength="4" WidthRequest="88"
+                         Style="{StaticResource Entry_BDetail}" Margin="{StaticResource  InputLeftBaseMargin}">
+
+                        <Entry.Behaviors>
+                            <toolkit:EventToCommandBehavior EventName="Unfocused" 
+                                              Command="{Binding  DetailCustomer.EmpPhoneNumber.ValidateFistNumberCommand}"
+                                              EventArgsConverter="{StaticResource UnfocusedEventArgsConverter}"/>
+                            <toolkit:EventToCommandBehavior EventName="Completed"
+                                              Command="{Binding DetailCustomer.EmpPhoneNumber.ValidateFistNumberCommand}"
+                                              CommandParameter="{Binding DetailCustomer.EmpPhoneNumber.FirstNumber}"/>
+                        </Entry.Behaviors>
+
+                        <Entry.Triggers>
+                            <DataTrigger
+                   TargetType="Entry" Binding="{Binding DetailCustomer.EmpPhoneNumber.IsValidFirst}" Value="False">
+                                <Setter Property="BackgroundColor" Value="{StaticResource EntryErrorColor}" />
+                            </DataTrigger>
+                        </Entry.Triggers>
+
+                    </Entry>
+
+                    <Label Text="-" Style="{StaticResource Lbl_BDetail}" WidthRequest="24" />
+
+                    <Entry  Text="{Binding DetailCustomer.EmpPhoneNumber.MiddleNumber}" 
+                      Placeholder="例:1234" Keyboard="Numeric" MaxLength="4" WidthRequest="88"
+                      Style="{StaticResource Entry_BDetail}" Margin="{StaticResource MarginLblValueObjMiddle}">
+
+                        <Entry.Behaviors>
+                            <toolkit:EventToCommandBehavior EventName="Unfocused" 
+                                              Command="{Binding DetailCustomer.EmpPhoneNumber.ValidateMiddleNumberCommand}"
+                                              EventArgsConverter="{StaticResource UnfocusedEventArgsConverter}"/>
+                            <toolkit:EventToCommandBehavior EventName="Completed"
+                                              Command="{Binding DetailCustomer.EmpPhoneNumber.ValidateMiddleNumberCommand}"
+                                              CommandParameter="{Binding DetailCustomer.EmpPhoneNumber.MiddleNumber}"/>
+                        </Entry.Behaviors>
+                        <Entry.Triggers>
+                            <DataTrigger
+                               TargetType="Entry" Binding="{Binding DetailCustomer.EmpPhoneNumber.IsValidMiddle}" Value="False">
+                                <Setter Property="BackgroundColor" Value="{StaticResource EntryErrorColor}" />
+                            </DataTrigger>
+                        </Entry.Triggers>
+                    </Entry>
+                    <Label Text="-" Style="{StaticResource Lbl_BDetail}" WidthRequest="24" Margin="{StaticResource MarginLblValueObjMiddle}"  />
+                    <Entry Text="{Binding DetailCustomer.EmpPhoneNumber.LastNumber}"  Placeholder="例:5678" Keyboard="Numeric"  MaxLength="4" WidthRequest="88" Style="{StaticResource Entry_BDetail}" Margin="{StaticResource MarginLblValueObjMiddle}">
+                        <Entry.Behaviors>
+                            <toolkit:EventToCommandBehavior EventName="Unfocused" 
+                                              Command="{Binding DetailCustomer.EmpPhoneNumber.ValidateLastNumberCommand}"
+                                              EventArgsConverter="{StaticResource UnfocusedEventArgsConverter}"/>
+                            <toolkit:EventToCommandBehavior EventName="Completed"
+                                              Command="{Binding DetailCustomer.EmpPhoneNumber.ValidateLastNumberCommand}"
+                                              CommandParameter="{Binding DetailCustomer.EmpPhoneNumber.LastNumber}"/>
+                        </Entry.Behaviors>
+                        <Entry.Triggers>
+                            <DataTrigger
+                            TargetType="Entry" Binding="{Binding DetailCustomer.EmpPhoneNumber.IsValidLast}" Value="false">
+                                <Setter Property="BackgroundColor" Value="{StaticResource EntryErrorColor}"/>
+                            </DataTrigger>
+                        </Entry.Triggers>
+
+                    </Entry>
+                </HorizontalStackLayout>
+
+                <!-- 6行目 -->
+                <HorizontalStackLayout Grid.Row="6" Grid.Column="1" >
+                    <Label Text="{Binding DetailCustomer.EmpPhoneNumber.ValidationErrorMsg}"  FontSize="18" TextColor="{StaticResource EntryErrorColor}" IsVisible="False" Margin="0,0,0,0">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding DetailCustomer.EmpPhoneNumber.IsValidFirst}" Value="false">
+                                <Setter Property="IsVisible" Value="True"/>
+                            </DataTrigger>
+                            <DataTrigger TargetType="Label" Binding="{Binding DetailCustomer.EmpPhoneNumber.IsValidMiddle}" Value="false">
+                                <Setter Property="IsVisible" Value="True"/>
+                            </DataTrigger>
+                            <DataTrigger TargetType="Label" Binding="{Binding DetailCustomer.EmpPhoneNumber.IsValidLast}" Value="false">
+                                <Setter Property="IsVisible" Value="True"/>
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </HorizontalStackLayout>
+
+                <!-- 7行目 -->
+                <Label  Grid.Row="7" Grid.Column="0" Style="{StaticResource Lbl_BDetail}" Text="送付状送り先"  />
+                <HorizontalStackLayout Grid.Row="7" Grid.Column="1">
+                    <RadioButton Content="自宅" HeightRequest="-1"  x:Name="MailingDestinationTypeHomeRbt" Margin="15" IsChecked="True" />
+                    <RadioButton Content="会社" HeightRequest="-1"  x:Name="MailingDestinationTypeCompanyRbt"  Margin="-65"/>
+                </HorizontalStackLayout>
+
+                <!-- 8行目 -->
+                <Label  Grid.Row="8" Grid.Column="0"  Style="{StaticResource Lbl_BDetail}" Text="連絡先"  />
+                <Picker Grid.Row="8" Grid.Column="1" HorizontalOptions="Start" SelectedItem="{Binding DetailCustomer.ContactDetails.SelectedContactDetails}"  WidthRequest="224" Margin="10,10,0,0">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>自宅電話</x:String>
+                            <x:String>携帯電話</x:String>
+                            <x:String>勤務先電話</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+
+
+                <HorizontalStackLayout Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2">
+                    <Button Text="水平ボタン1" Style="{StaticResource Btn_App}" Margin="{StaticResource MarginBtn}"/>
+                    <Button Text="水平ボタン2" Style="{StaticResource Btn_App}" Margin="{StaticResource MarginBtn}"/>
+                </HorizontalStackLayout>
+
+            </Grid>
+            </helper:ViewBox>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,282 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+
+		<!-- Trsut MOD start -->
+
+		<TargetFrameworks>net8.0-windows10.0.22621.0</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.22621.0</TargetFrameworks>
+
+		<!--https://zenn.dev/natsuyasai/articles/00015_mauinew-unittest-->
+
+		<!-- 通常のプログラムを実行する場合はこちらに変更する -->
+		<!-- <OutputType>Exe</OutputType> -->
+		<!-- テストエクスプローラを実行するにはこちらに変更する -->
+		<OutputType Condition="'$(TargetFramework)' != 'net8.0-windows10.0.22621.0'">Exe</OutputType>
+		<NoWarn>$(NoWarn);SA1005;CA1416;CS0612</NoWarn>
+		<!-- Trsut MOD end -->
+
+		<RootNamespace>CO2</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<!-- Display name -->
+		<ApplicationTitle>CO2</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.co2</ApplicationId>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.22621.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.22621.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+		
+		
+		<!-- Trsut Add start -->
+		<!-- アセンブリ情報を自動生成する -->
+		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+		
+		<!-- アセンブリ情報のカスタマイズ -->
+		<AssemblyTitle>CO2</AssemblyTitle>
+		<AssemblyVersion>1.1.1.23</AssemblyVersion>
+		<AssemblyFileVersion>1.1.1.1</AssemblyFileVersion>
+		<AssemblyCompany>Trust</AssemblyCompany>
+		<AssemblyProduct>Co2</AssemblyProduct>
+		
+		<Platforms>AnyCPU;x64</Platforms>
+		<!-- Trsut Add end -->
+		
+	</PropertyGroup>
+
+	<PropertyGroup>
+	  <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.22621.0</TargetFrameworks>
+	  <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+	  <AnalysisLevel>latest</AnalysisLevel>
+	  <PlatformTarget>AnyCPU</PlatformTarget>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows10.0.22621.0|AnyCPU'">
+	  <CodeAnalysisRuleSet />
+	  <WarningLevel>9999</WarningLevel>
+	  <DebugType>embedded</DebugType>
+	  <WarningsAsErrors>$(WarningsAsErrors);NU1605</WarningsAsErrors>
+	  <DefineConstants>$(DefineConstants);UNIT_TEST</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows10.0.22621.0|x64'">
+	  <CodeAnalysisRuleSet />
+	  <WarningLevel>9999</WarningLevel>
+	  <DebugType>embedded</DebugType>
+	  <WarningsAsErrors>$(WarningsAsErrors);NU1605</WarningsAsErrors>
+	  <DefineConstants>$(DefineConstants);UNIT_TEST</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows10.0.22621.0|AnyCPU'">
+	  <CodeAnalysisRuleSet />
+	  <WarningLevel>9999</WarningLevel>
+	  <DebugType>embedded</DebugType>
+	  <WarningsAsErrors>$(WarningsAsErrors);NU1605</WarningsAsErrors>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows10.0.22621.0|x64'">
+	  <CodeAnalysisRuleSet />
+	  <WarningLevel>9999</WarningLevel>
+	  <DebugType>embedded</DebugType>
+	  <WarningsAsErrors>$(WarningsAsErrors);NU1605</WarningsAsErrors>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		<!-- <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" /> -->
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="SQLServer\**" />
+	  <EmbeddedResource Remove="SQLServer\**" />
+	  <MauiCss Remove="SQLServer\**" />
+	  <MauiXaml Remove="SQLServer\**" />
+	  <None Remove="SQLServer\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="MainPage.xaml.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Remove="MainPage.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <COMReference Include="Microsoft.Office.Interop.Excel">
+	    <WrapperTool>tlbimp</WrapperTool>
+	    <VersionMinor>9</VersionMinor>
+	    <VersionMajor>1</VersionMajor>
+	    <Guid>00020813-0000-0000-c000-000000000046</Guid>
+	    <Lcid>0</Lcid>
+	    <Isolated>false</Isolated>
+	    <EmbedInteropTypes>true</EmbedInteropTypes>
+	  </COMReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="akgul.Maui.DataGrid" Version="4.0.5" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="log4net" Version="2.0.15" />
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="ThammimTech.Microsoft.Vbe.Interop" Version="15.0.0" />
+		<PackageReference Include="UraniumUI.Icons.FontAwesome" Version="2.11.0" />
+		<PackageReference Include="UraniumUI.Icons.MaterialSymbols" Version="2.11.0" />
+		<PackageReference Include="UraniumUI.Material" Version="2.10.2" />
+		<PackageReference Include="xunit" Version="2.8.1" />
+		<!-- Trsut MOD start -->
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.21" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="3.0.1">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<!-- Trsut MOD end -->
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="At\Src\aFunc\ViewTest\VwFontTestLayoutBase.xaml.cs">
+	    <DependentUpon>VwFontTestLayoutBase.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="At\Src\aWinForm\aViews\Vw5.xaml.cs">
+	    <DependentUpon>Vw5.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="At\Src\aWinForm\aViews\Vw32.xaml.cs">
+	    <DependentUpon>Vw32.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="At\Src\aWinForm\aViews\Vw331_Ledger.xaml.cs">
+	    <DependentUpon>Vw331_Ledger.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="At\Src\aWinForm\aViews\Vw623_Employee.xaml.cs">
+	    <DependentUpon>Vw623_Employee.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="At\Src\aWinForm\aViews\Vw624_User.xaml.cs">
+	    <DependentUpon>Vw624_User.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="At\Src\aWinForm\aViews\Vw622_OrgChild.xaml.cs">
+	    <DependentUpon>Vw622_OrgChild.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="At\Src\aWinForm\aViews\Vw61Employee.xaml.cs">
+	    <DependentUpon>Vw61Employee.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="At\Src\aWinForm\aViews\Vw621_OrgParent.xaml.cs">
+	    <DependentUpon>Vw621_OrgParent.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="At\Src\aWinForm\aViews\Vw0.xaml.cs">
+	    <DependentUpon>Vw0.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="At\Src\aWinForm\aViews\Vw22.xaml.cs">
+	    <DependentUpon>Vw22.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="At\Src\aWinForm\aViews\Vw1.xaml.cs">
+	    <DependentUpon>Vw1.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="At\Src\aWinForm\aViews\Vw8.xaml.cs">
+	    <DependentUpon>Vw8.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="At\Src\aWinForm\aViews\Vw522_GoodDetail.xaml.cs">
+	    <DependentUpon>Vw522_GoodDetail.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="At\Src\aWinForm\aViews\Vw523_CurrencyDetail.xaml.cs">
+	    <DependentUpon>Vw523_CurrencyDetail.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="At\Src\aFunc\ViewTest\VwFontTestGridBase.xaml.cs">
+	    <DependentUpon>VwFontTestGridBase.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Properties\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="At\Src\aFunc\ViewTest\VwFontTestLayoutBase.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="At\Src\aWinForm\aViews\Vw0.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="At\Src\aWinForm\aViews\Vw5.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="At\Src\aWinForm\aViews\Vw22.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="At\Src\aFunc\ViewTest\VwFontTestGridBase.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\TrsutStylesSamples.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="At\Dat\Log\" />
+	  <Folder Include="At\Src\aFunc\Settlement\" />
+	  <Folder Include="At\Src\aFunc\Deposit\" />
+	  <Folder Include="At\Src\bInfrastructure\UraniumUI\" />
+	  <Folder Include="At\Src\aWinForm\cBackgroundWorkers\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PRIResource Remove="SQLServer\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Fonts\OpenSans-Regular.ttf" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="C:\Users\sumiharaTrust\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="C:\Users\sumiharaTrust\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\DeploymentManagerAutoInitializer.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="C:\Users\sumiharaTrust\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="C:\Users\sumiharaTrust\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\DeploymentManagerAutoInitializer.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="C:\Users\sumiharaTrust\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\DeploymentManagerAutoInitializer.cs" />
+	</ItemGroup>
+
+</Project>
